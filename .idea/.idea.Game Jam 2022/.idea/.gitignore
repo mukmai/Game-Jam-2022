@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.Game Jam 2022.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\USER\Documents\GitHub\Game Jam 2022\.idea\.idea.Game Jam 2022\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
