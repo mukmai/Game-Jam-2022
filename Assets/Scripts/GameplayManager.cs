@@ -7,7 +7,8 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // TODO: cache light wave and particles
+        // ObjectPool.Instance.CacheObject();
     }
 
     // Update is called once per frame
@@ -15,4 +16,6 @@ public class GameplayManager : MonoBehaviour
     {
         
     }
+    
+    
 }
