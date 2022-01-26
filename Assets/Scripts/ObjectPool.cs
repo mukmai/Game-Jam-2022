@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,17 +23,23 @@ public class ObjectPool : MonoBehaviour
     private List<int> _poolKeys;
     private Dictionary<int, List<GameObject>> _pool;
 
-    public void InitObjectPool() {
+    public void InitObjectPool()
+    {
         _poolKeys = new List<int>();
         _pool = new Dictionary<int, List<GameObject>>();
     }
 
-    public void DestroyPoolAll() {
+    public void DestroyPoolAll()
+    {
         // ***** Will cause lag *****
-        foreach (var pair in _pool) {
-            if (pair.Value != null) {
-                foreach (var obj in pair.Value) {
-                    if (obj != null) {
+        foreach (var pair in _pool)
+        {
+            if (pair.Value != null)
+            {
+                foreach (var obj in pair.Value)
+                {
+                    if (obj != null)
+                    {
                         Destroy(obj);
                     }
                 }
@@ -42,8 +49,40 @@ public class ObjectPool : MonoBehaviour
         _pool = new Dictionary<int, List<GameObject>>();
     }
 
+    public void CacheObject(GameObject obj, int count, Action<GameObject> onObjCreated = null)
+    {
+        // ***** Will cause lag *****
+
+        int key = obj.GetInstanceID();
+
+        if (_poolKeys.Contains(key) == false && _pool.ContainsKey(key) == false)
+        {
+            _poolKeys.Add(key);
+            _pool.Add(key, new List<GameObject>());
+        }
+
+        List<GameObject> goList = _pool[key];
+        goList.RemoveAll(g => g == null);
+
+        int createCount = count - goList.Count;
+        
+        //Debug.Log("Cache Object: " + obj.name + " count: " + createCount);
+        for (int i = 0; i < createCount; i++)
+        {
+            GameObject go = (GameObject)Instantiate(obj, new Vector3(999, 999, 999), Quaternion.identity);
+            go.transform.SetParent(gameObject.transform);
+            if (onObjCreated != null)
+            {
+                onObjCreated(go);
+            }
+            go.SetActive(false);
+            goList.Add(go);
+        }
+    }
+
     public GameObject CreateObject(GameObject obj, Transform parent = null, Vector3 localPos = default(Vector3),
-        Quaternion localRot = default(Quaternion)) {
+        Quaternion localRot = default(Quaternion))
+    {
         int key = obj.GetInstanceID();
 
         if (_poolKeys.Contains(key) == false && _pool.ContainsKey(key) == false) {
@@ -79,7 +118,8 @@ public class ObjectPool : MonoBehaviour
         return go;
     }
 
-    public void DestroyObject(GameObject obj) {
+    public void DestroyObject(GameObject obj)
+    {
         obj.SetActive(false);
         obj.transform.SetParent(transform);
     }
