@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    private static AudioManager _instance;
+
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (!_instance)
+            {
+                _instance = FindObjectOfType<AudioManager>();
+            }
+
+            return _instance;
+        }
+    }
+
     public List<Sound> audioList;
 
     void Awake()
@@ -44,10 +59,16 @@ public class Sound
     [Range(0f, 1f)]
     public float volume;
     [Range(.1f, 3f)]
-    public float pitch = 0.1f;
+    public float pitch = 1f;
 
     public bool loop;
 
     [HideInInspector]
     public AudioSource source;
+
+    public Sound()
+    {
+        volume = 1;
+        pitch = 1;
+    }
 }

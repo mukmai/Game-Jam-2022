@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class FreeDragObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 _mouseOffset;
+    
+    void OnMouseDown()
     {
-        
+        _mouseOffset = transform.position - GetMouseWorldPos();
     }
 
-    // Update is called once per frame
-    void Update()
+    private Vector3 GetMouseWorldPos()
     {
-        
+        Vector3 mousePoint = Input.mousePosition;
+
+        // mousePoint = new Vector3(mousePoint.x, 0, mousePoint.y);
+
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+    
+    void OnMouseDrag()
+    {
+        transform.position = GetMouseWorldPos() + _mouseOffset;
     }
 }

@@ -44,7 +44,8 @@ public class GameplayManager : MonoBehaviour
 
     public void SetUpGame()
     {
-        
+        Debug.Log("Setting up game");
+        AudioManager.Instance.Play("AudioTest");
     }
     
     // Update is called once per frame
