@@ -50,3 +50,111 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: BGM_for_menu
+    clip: {fileID: 8300000, guid: 4aaa1c9614a16224b8b69a2f6d0a6117, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: BGM_in_game
+    clip: {fileID: 8300000, guid: db4c477e85e5aaf45a0fa6ed539def1e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: cablecar_pass_by_1
+    clip: {fileID: 8300000, guid: 0dab83f2101432c428b9d5e7203f2baa, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cablecar_pass_by_2
+    clip: {fileID: 8300000, guid: 8640f4411c2c5a84aa92fb389871dd23, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cablecar_pass_by_3
+    clip: {fileID: 8300000, guid: 6bf4e3f55c3c06d48a4567a97adcbba1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cablecar_pass_by_bell_1
+    clip: {fileID: 8300000, guid: b3bf28730631fd349983e538d21ed6d1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cablecar_pass_by_bell_2
+    clip: {fileID: 8300000, guid: 62e484559bc413442b34738b03ea4cff, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: cablecar_on_board
+    clip: {fileID: 8300000, guid: a0ec91d73419ec0498e1d91a3f969207, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: lights_on_1
+    clip: {fileID: 8300000, guid: 971842b3176e87846b426702b804b3ce, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: lights_on_2
+    clip: {fileID: 8300000, guid: d698e0664da6c0c42a74326022a4c33a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: lights_off_1
+    clip: {fileID: 8300000, guid: 2763c5e5bff3a5e45940d5ab2e29e555, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: lights_off_2
+    clip: {fileID: 8300000, guid: 1da4620fc6a651546827b42cce043095, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Machine_Converted
+    clip: {fileID: 8300000, guid: d5b5fbd775f3f6c4a8cee28af13ade6d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: moving_heavy_items
+    clip: {fileID: 8300000, guid: 307df50270257fa4680bfa2f1056edf1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: photons
+    clip: {fileID: 8300000, guid: a241ab8c105172a499173d168ce907d1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: power_up
+    clip: {fileID: 8300000, guid: 075b804fe967ec94196819f740ce2516, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: wire1
+    clip: {fileID: 8300000, guid: ea4d6098cb3987549995e691d6c5751b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: wire2
+    clip: {fileID: 8300000, guid: d87a43a32dd67734480da2d3258e65c0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
