@@ -46,7 +46,7 @@ MonoBehaviour:
   audioList:
   - name: AudioTest
     clip: {fileID: 8300000, guid: 9c65d15dff1d8284a98ca8abac3fcf99, type: 3}
-    volume: 0
-    pitch: 0
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
