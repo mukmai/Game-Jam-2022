@@ -84,8 +84,11 @@ public class ApplicationManager : MonoBehaviour
 
     public void EnterGameplay(int levelIndex)
     {
-        string actualLevelName = _currChapterIndex + "_" + levelIndex;
+        string actualLevelName = (_currChapterIndex + 1) + "_" + levelIndex;
         Debug.Log("Enter level: " + actualLevelName);
+        GameplayManager.SelectedLevelFromMenu = actualLevelName;
+        GameplayManager.MenuSelectedLevel = true;
+        SceneManager.LoadScene("GameScene");
     }
 
     private void SetUpLevelButtons()
