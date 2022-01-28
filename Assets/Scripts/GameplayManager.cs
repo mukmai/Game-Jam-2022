@@ -24,6 +24,7 @@ public class GameplayManager : MonoBehaviour
     public static string SelectedLevelFromMenu;
     [SerializeField] private string currTestingLevel;
     private string _currLevelId;
+    private GameLevel _currGameLevel;
 
     private Transform _currGrabbingObject;
     private bool _isGrabRotation;
@@ -49,13 +50,18 @@ public class GameplayManager : MonoBehaviour
     public void SetUpGame()
     {
         Debug.Log("Setting up game");
+        _currGameLevel = ObjectPool.Instance.CreateObject(
+            Resources.Load<GameObject>("GameLevels/" + _currLevelId)).GetComponent<GameLevel>();
         // AudioManager.Instance.Play("AudioTest");
     }
     
     // Update is called once per frame
     void Update()
     {
-        // update
+        if (_currGameLevel)
+        {
+            
+        }
     }
     
     public void QuitLevel()
@@ -66,7 +72,7 @@ public class GameplayManager : MonoBehaviour
     public void ResetLevel()
     {
         Debug.Log("Reset level");
-        SetUpGame();
+        SceneManager.LoadScene("GameScene");
     }
 
     public bool TryGrabTool(Transform transform, bool isRotation)
