@@ -7,9 +7,13 @@ public class WaveLightRay : LightRay
     
     LineRenderer line;
 
-    void setNewEnd (Vector3 newEnd)
+    void Awake()
     {
         line = GetComponent<LineRenderer>();
+    }
+
+    void setNewEnd (Vector3 newEnd)
+    {
         line.SetPosition(1, newEnd);
     }
 
@@ -20,7 +24,7 @@ public class WaveLightRay : LightRay
         RaycastHit hitData;
         if (Physics.Raycast(ray, out hitData))
         {
-
+            //call hitObject function
         }
 
     }

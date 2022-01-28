@@ -25,7 +25,15 @@ public class LightRay : MonoBehaviour
     //remove lightRay as node, set inactive
     public void remove(LightRay lightRay)
     {
-
+        if (lightRay.children.Count == 0)
+        {
+            children.remove(lightRay);
+            return;
+        }
+        else
+        {
+            foreach (LightRay i in lightRay.children){remove(i);}
+        }
     }
 
     //traverses function

@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class WaveReceiver : LightReceiver
 {
+    void 
 }
