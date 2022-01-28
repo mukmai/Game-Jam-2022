@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameLevel : MonoBehaviour
 {
-    [SerializeField] private List<LightSource> lightSources;
-    [SerializeField] private List<LightReceiver> lightReceivers;
+    public List<LightSource> lightSources;
+    public List<LightReceiver> lightReceivers;
     // Start is called before the first frame update
     void Start()
     {

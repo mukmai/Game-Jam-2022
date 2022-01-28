@@ -60,7 +60,10 @@ public class GameplayManager : MonoBehaviour
     {
         if (_currGameLevel)
         {
-            
+            foreach (var lightSource in _currGameLevel.lightSources)
+            {
+                lightSource.UpdateLightSource();
+            }
         }
     }
     

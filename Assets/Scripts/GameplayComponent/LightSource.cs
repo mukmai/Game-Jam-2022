@@ -16,9 +16,12 @@ public class LightSource : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateLightSource()
     {
-        
+        if (!lightRay)
+        {
+            addLightRay(transform.position, transform.forward);
+        }
+        // TODO: call update function in lightray
     }
 }
