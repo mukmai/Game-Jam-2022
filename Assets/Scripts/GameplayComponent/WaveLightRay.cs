@@ -35,6 +35,13 @@ public class WaveLightRay : LightRay
         reflectionChild.SetNewDirection(direction);
     }
 
+    public Vector3[] GetPositions()
+    {
+        Vector3[] position = new Vector3[line.positionCount];
+        line.GetPositions(position);
+        return position;
+    }
+
     // Update is called once per frame
     public override void UpdateLightRay()
     {

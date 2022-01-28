@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class LightReceiver : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private ParticleSystem _cloudParticles;
+    //Color _desirecolor = GetComponent<LightReceiver>().color;
     void Start()
     {
-        
+        bool _hitByWave =false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        WaveLightRay wave = collision.collider.GetComponent<WaveLightRay>();
+        //Vector3[] collisionPoints = wave.GetPositions();
+        if(wave != null) 
+        {
+            _cloudParticles.Play();
+            _hitByWave =true;
+        }
+        else
+        {
+            _hitByWave = false;
+        }
+        return;
     }
 
-    public bool ReceivingLight()
+    public virtual bool ReceivingLight()
     {
-        return false;
+        return _hitByWave;
     }
+
+
 }

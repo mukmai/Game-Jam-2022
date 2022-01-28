@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class ParticleReceiver : LightReceiver
 {
+    public override void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }
