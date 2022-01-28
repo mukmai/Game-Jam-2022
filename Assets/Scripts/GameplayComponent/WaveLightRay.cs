@@ -12,19 +12,39 @@ public class WaveLightRay : LightRay
         line = GetComponent<LineRenderer>();
     }
 
-    void setNewEnd (Vector3 newEnd)
+    //set new start
+    public override void SetNewStart(Vector3 newStartPos)
+    {
+        base.SetNewStart(newStartPos);
+        line.SetPosition(0, newStartPos);
+    }
+
+    public override void SetNewEnd (Vector3 newEnd)
     {
         line.SetPosition(1, newEnd);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void CreateOrUpdateReflectionChild(Vector3 startPos,Vector3 direction)
     {
-        Ray ray = new Ray(transform.position, this.direction);
+        if (!reflectionChild)
+        {
+            reflectionChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+            reflectionChild.SetNewStart(startPos);
+            reflectionChild.SetNewDirection(direction);
+
+        }
+    }
+
+    // Update is called once per frame
+    public override void UpdateLightRay()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
         if (Physics.Raycast(ray, out hitData))
         {
             //call hitObject function
+            hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
+
         }
 
     }

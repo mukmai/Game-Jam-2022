@@ -14,15 +14,21 @@ public class ParticleLightRay : LightRay
     }
 
     //chang end position of the particles
-    public void setNewEnd(Vector3 newEndPos)
+    public override void SetNewEnd(Vector3 newEndPos)
     {
         endPos = newEndPos;
 
     }
 
+    //set new start
+    public override void SetNewStart(Vector3 newStartPos)
+    {
+        base.SetNewStart(newStartPos);
+    }
+
 
     // Update is called once per frame
-    void Update()
+    public override void UpdateLightRay()
     {
         Ray ray = new Ray(transform.position, this.direction);
         RaycastHit hitData;

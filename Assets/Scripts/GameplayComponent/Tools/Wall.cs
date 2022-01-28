@@ -7,7 +7,7 @@ public class Wall : LightRayHitTarget
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
     {
         // tell wave to remove all children
-        wave.setNewEnd(hitPosition);
+        wave.SetNewEnd(hitPosition);
         wave.RemoveReflectionChild();
         wave.RemoveSlitChildren();
     }

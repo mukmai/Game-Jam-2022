@@ -9,19 +9,18 @@ public class LightSource : MonoBehaviour
     public LightRay lightRay;
 
     //add wave/particle to source
-    void addLightRay(Vector3 startPos, Vector3 lightDirection)
+    void AddLightRay()
     {
-        startPos = transform.position;
-        lightDirection = this.direction;
-
+        ObjectPool.Instance.CreateObject(gameObject);
     }
 
     public void UpdateLightSource()
     {
         if (!lightRay)
         {
-            addLightRay(transform.position, transform.forward);
+            AddLightRay();
         }
         // TODO: call update function in lightray
+        lightRay.UpdateLightRay();
     }
 }

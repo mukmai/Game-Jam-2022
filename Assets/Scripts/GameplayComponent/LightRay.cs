@@ -5,7 +5,8 @@ using UnityEngine;
 public class LightRay : MonoBehaviour
 {
     public LightRay parent;
-    public List<LightRay> children;
+    public LightRay reflectionChild;
+    public List<LightRay> slitChildren;
     public Material mat;
     public Vector3 direction;
 
@@ -13,57 +14,62 @@ public class LightRay : MonoBehaviour
     public LightRay()
     {
         parent = null;
-        this.children = new List<LightRay>();
+        slitChildren = new List<LightRay>();
     }
 
     //add new node
-    public void add(LightRay lightRay)
+    public void Add(LightRay lightRay)
     {
-        this.children.Add(lightRay);
+        slitChildren.Add(lightRay);
     }
 
     //remove lightRay as node, set inactive
-    public void remove(LightRay lightRay)
+    public void RemoveSlitChildren()
     {
-        if (lightRay.children.Count == 0)
-        {
-            children.remove(lightRay);
-            return;
+        foreach (LightRay i in slitChildren){
+            i.RemoveSlitChildren();
+            i.RemoveReflectionChild();
+            i.Remove();
         }
-        else
-        {
-            foreach (LightRay i in lightRay.children){remove(i);}
-        }
+    }
+
+    public void RemoveReflectionChild()
+    {
+        reflectionChild.Remove();
+    }
+
+    public void Remove()
+    {
+        ObjectPool.Instance.DestroyObject(gameObject);
     }
 
     //set new end
-    public void setNewEnd(Vector3 newEndPos)
+    public virtual void SetNewEnd(Vector3 newEndPos)
     {
-
     }
 
-    //traverses function
-    public void traverse(LightSource lightSource)
+    //set new start
+    public virtual void SetNewStart(Vector3 newStartPos)
     {
-        traverse(lightSource.lightRay);
+        transform.position = newStartPos;
     }
 
-    public void traverse(LightRay lightRay)
+    public virtual void SetNewDirection(Vector3 newDir)
     {
-        lightRay.Update();
-        if (lightRay.children.Count == 0)
-        {
-            return;
-        }
-        else
-        {
-            foreach (LightRay i in lightRay.children){traverse(i);}
-        }
+        transform.forward = newDir;
+    }
+
+    public virtual void CreateOrUpdateReflectionChild(Vector3 startPos, Vector3 direction)
+    {
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void UpdateLightRay()
     {
-
+        //end point update
+        //start point update
+        foreach (LightRay i in slitChildren) { UpdateLightRay(); }
+        reflectionChild.UpdateLightRay();
+        
     }
 }

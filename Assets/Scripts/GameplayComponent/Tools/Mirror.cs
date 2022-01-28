@@ -20,10 +20,9 @@ public class Mirror : LightRayHitTarget
     {
         wave.SetNewEnd(hitPosition);
         wave.RemoveReflectionChild();
-        wave.CreateOrUpdateSlitChildren(wave, hitPosition, Vector3.Reflect(hitDirection, transform.forward).RemoveY());
+        wave.CreateOrUpdateReflectionChild(hitPosition, Vector3.Reflect(hitDirection, transform.forward).RemoveY());
 
         // tell wave to create or change child light ray color, start point, then update
-        throw new System.NotImplementedException();
     }
 
     public override void HandleParticleInteraction(Particle particle)
