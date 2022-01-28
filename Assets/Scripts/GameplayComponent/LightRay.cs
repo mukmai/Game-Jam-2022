@@ -31,11 +31,17 @@ public class LightRay : MonoBehaviour
             i.RemoveReflectionChild();
             i.Remove();
         }
+        slitChildren.Clear();
     }
 
     public void RemoveReflectionChild()
     {
-        reflectionChild.Remove();
+        if (reflectionChild)
+        {
+            reflectionChild.Remove();
+        }
+
+        reflectionChild = null;
     }
 
     public void Remove()
@@ -68,8 +74,15 @@ public class LightRay : MonoBehaviour
     {
         //end point update
         //start point update
-        foreach (LightRay i in slitChildren) { UpdateLightRay(); }
-        reflectionChild.UpdateLightRay();
+        foreach (LightRay i in slitChildren)
+        {
+            UpdateLightRay();
+        }
+
+        if (reflectionChild)
+        {
+            reflectionChild.UpdateLightRay();
+        }
         
     }
 }

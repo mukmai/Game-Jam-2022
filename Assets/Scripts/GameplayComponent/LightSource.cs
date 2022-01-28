@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class LightSource : MonoBehaviour
 {
-    [SerializeField] public Vector3 direction;
-
     public LightRay lightRay;
 
     //add wave/particle to source
     void AddLightRay()
     {
-        ObjectPool.Instance.CreateObject(gameObject);
+        lightRay = ObjectPool.Instance.CreateObject(
+            GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+        lightRay.SetNewStart(transform.position);
+        lightRay.SetNewDirection(transform.forward);
     }
 
     public void UpdateLightSource()
@@ -20,7 +21,6 @@ public class LightSource : MonoBehaviour
         {
             AddLightRay();
         }
-        // TODO: call update function in lightray
         lightRay.UpdateLightRay();
     }
 }

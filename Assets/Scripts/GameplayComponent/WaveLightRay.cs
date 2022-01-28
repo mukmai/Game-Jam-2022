@@ -29,10 +29,10 @@ public class WaveLightRay : LightRay
         if (!reflectionChild)
         {
             reflectionChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
-            reflectionChild.SetNewStart(startPos);
-            reflectionChild.SetNewDirection(direction);
-
         }
+        
+        reflectionChild.SetNewStart(startPos);
+        reflectionChild.SetNewDirection(direction);
     }
 
     // Update is called once per frame
@@ -46,7 +46,8 @@ public class WaveLightRay : LightRay
             hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
 
         }
-
+        
+        base.UpdateLightRay();
     }
 
 
