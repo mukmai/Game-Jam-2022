@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefractionMedium : MonoBehaviour
+public class RefractionMedium : LightRayHitTarget
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void HandleParticleInteraction(Particle particle)
     {
-        
+        throw new System.NotImplementedException();
     }
 }
