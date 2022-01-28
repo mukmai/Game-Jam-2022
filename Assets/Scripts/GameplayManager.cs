@@ -25,6 +25,9 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private string currTestingLevel;
     private string _currLevelId;
 
+    private Transform _currGrabbingObject;
+    private bool _isGrabRotation;
+        
     // Start is called before the first frame update
     void Start()
     {
@@ -39,13 +42,14 @@ public class GameplayManager : MonoBehaviour
             _currLevelId = currTestingLevel;
         }
         Debug.Log("Curr level: " + _currLevelId);
+        _currGrabbingObject = null;
         SetUpGame();
     }
 
     public void SetUpGame()
     {
         Debug.Log("Setting up game");
-        AudioManager.Instance.Play("AudioTest");
+        // AudioManager.Instance.Play("AudioTest");
     }
     
     // Update is called once per frame
@@ -63,5 +67,28 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("Reset level");
         SetUpGame();
+    }
+
+    public bool TryGrabTool(Transform transform, bool isRotation)
+    {
+        if (!_currGrabbingObject)
+        {
+            _currGrabbingObject = transform;
+            _isGrabRotation = isRotation;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryReleaseTool(Transform transform, bool isRotation)
+    {
+        if (_currGrabbingObject == transform && _isGrabRotation == isRotation)
+        {
+            _currGrabbingObject = null;
+            return true;
+        }
+
+        return false;
     }
 }
