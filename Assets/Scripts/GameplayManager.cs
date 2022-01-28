@@ -20,6 +20,9 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    public GameObject waveLightRayGameObject;
+    public GameObject particleLightRayGameObject;
+    
     public static bool MenuSelectedLevel;
     public static string SelectedLevelFromMenu;
     [SerializeField] private string currTestingLevel;
@@ -32,6 +35,7 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        waveLightRayGameObject = Resources.Load<GameObject>("GameComponents/WaveLightRay");
         // TODO: cache light wave and particles
         // ObjectPool.Instance.CacheObject();
         if (MenuSelectedLevel)

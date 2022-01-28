@@ -6,7 +6,10 @@ public class Wall : LightRayHitTarget
 {
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
     {
-        throw new System.NotImplementedException();
+        // tell wave to remove all children
+        wave.setNewEnd(hitPosition);
+        wave.RemoveReflectionChild();
+        wave.RemoveSlitChildren();
     }
 
     public override void HandleParticleInteraction(Particle particle)
