@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
-
-
+    
+    
 
     // Update is called once per frame
     void Update()

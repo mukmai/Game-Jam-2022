@@ -6,7 +6,7 @@ public class LightRay : MonoBehaviour
 {
     public LightRay parent;
     public List<LightRay> children;
-    public Material color;
+    public Material mat;
     public Vector3 direction;
 
     //constructors
@@ -34,6 +34,12 @@ public class LightRay : MonoBehaviour
         {
             foreach (LightRay i in lightRay.children){remove(i);}
         }
+    }
+
+    //set new end
+    public void setNewEnd(Vector3 newEndPos)
+    {
+
     }
 
     //traverses function

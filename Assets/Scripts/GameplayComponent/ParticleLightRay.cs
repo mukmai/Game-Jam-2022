@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleLightRay : LightRay
 {
     public List<Particle> particles;
-    public float unitDist;
+    public float unitDist = 10;
     public Vector3 startPos, endPos;
 
     public ParticleLightRay()
@@ -13,11 +13,14 @@ public class ParticleLightRay : LightRay
         particles = new List<Particle>();
     }
 
+    //chang end position of the particles
     public void setNewEnd(Vector3 newEndPos)
     {
         endPos = newEndPos;
+
     }
-     
+
+
     // Update is called once per frame
     void Update()
     {
