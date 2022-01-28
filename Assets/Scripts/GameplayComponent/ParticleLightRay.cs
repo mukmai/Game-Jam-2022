@@ -7,17 +7,18 @@ public class ParticleLightRay : LightRay
     public List<Particle> particles;
     public float unitDist = 10;
     public Vector3 startPos, endPos;
+    private float _lastShootParticleTime;
+    private float shootParticleInterval = 0.1f;
 
     public ParticleLightRay()
     {
         particles = new List<Particle>();
     }
 
-    //chang end position of the particles
+    //change end position of the particles
     public override void SetNewEnd(Vector3 newEndPos)
     {
         endPos = newEndPos;
-
     }
 
     //set new start
@@ -26,16 +27,15 @@ public class ParticleLightRay : LightRay
         base.SetNewStart(newStartPos);
     }
 
-
     // Update is called once per frame
     public override void UpdateLightRay()
     {
-        Ray ray = new Ray(transform.position, this.direction);
-        RaycastHit hitData;
-        if (Physics.Raycast(ray, out hitData))
+        if (_lastShootParticleTime + shootParticleInterval <= Time.time)
         {
-
+            var currParticle = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleGameObject, 
+                localPos: transform.position).GetComponent<Particle>();
+            currParticle.Init(transform.forward);
+            _lastShootParticleTime = Time.time;
         }
-
     }
 }

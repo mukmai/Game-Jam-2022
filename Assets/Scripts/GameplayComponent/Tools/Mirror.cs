@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class Mirror : LightRayHitTarget
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
     {
         wave.SetNewEnd(hitPosition);
@@ -27,6 +15,8 @@ public class Mirror : LightRayHitTarget
 
     public override void HandleParticleInteraction(Particle particle)
     {
-        throw new System.NotImplementedException();
+        var reflectedDir = Vector3.Reflect(particle.transform.forward,
+            transform.forward).RemoveY();
+        particle.UpdateMoveDirection(reflectedDir);
     }
 }

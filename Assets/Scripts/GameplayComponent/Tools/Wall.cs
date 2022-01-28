@@ -14,6 +14,6 @@ public class Wall : LightRayHitTarget
 
     public override void HandleParticleInteraction(Particle particle)
     {
-        throw new System.NotImplementedException();
+        particle.Remove();
     }
 }

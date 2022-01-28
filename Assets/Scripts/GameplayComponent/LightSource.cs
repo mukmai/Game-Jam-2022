@@ -4,23 +4,7 @@ using UnityEngine;
 
 public class LightSource : MonoBehaviour
 {
-    public LightRay lightRay;
-
-    //add wave/particle to source
-    void AddLightRay()
+    public virtual void UpdateLightSource()
     {
-        lightRay = ObjectPool.Instance.CreateObject(
-            GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
-        lightRay.SetNewStart(transform.position);
-        lightRay.SetNewDirection(transform.forward);
-    }
-
-    public void UpdateLightSource()
-    {
-        if (!lightRay)
-        {
-            AddLightRay();
-        }
-        lightRay.UpdateLightRay();
     }
 }

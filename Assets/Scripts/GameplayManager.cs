@@ -19,9 +19,6 @@ public class GameplayManager : MonoBehaviour
             return _instance;
         }
     }
-
-    public GameObject waveLightRayGameObject;
-    public GameObject particleLightRayGameObject;
     
     public static bool MenuSelectedLevel;
     public static string SelectedLevelFromMenu;
@@ -35,9 +32,7 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waveLightRayGameObject = Resources.Load<GameObject>("GameComponents/WaveLightRay");
-        // TODO: cache light wave and particles
-        // ObjectPool.Instance.CacheObject();
+        CacheObject();
         if (MenuSelectedLevel)
         {
             _currLevelId = SelectedLevelFromMenu;
@@ -51,11 +46,26 @@ public class GameplayManager : MonoBehaviour
         SetUpGame();
     }
 
+    [HideInInspector] public GameObject waveLightRayGameObject;
+    [HideInInspector] public GameObject particleLightRayGameObject;
+    [HideInInspector] public GameObject particleGameObject;
+
+    private void CacheObject()
+    {
+        waveLightRayGameObject = Resources.Load<GameObject>("GameComponents/WaveLightRay");
+        particleLightRayGameObject = Resources.Load<GameObject>("GameComponents/ParticleLightRay");
+        particleGameObject = Resources.Load<GameObject>("GameComponents/Particle");
+        // TODO: cache light wave and particles
+        // ObjectPool.Instance.CacheObject();
+
+    }
+
     public void SetUpGame()
     {
         Debug.Log("Setting up game");
         _currGameLevel = ObjectPool.Instance.CreateObject(
             Resources.Load<GameObject>("GameLevels/" + _currLevelId)).GetComponent<GameLevel>();
+        _currGameLevel.Init();
         // AudioManager.Instance.Play("AudioTest");
     }
     
