@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class WaveLightRay : LightRay
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    LineRenderer line;
+
+    void setNewEnd (Vector3 newEnd)
     {
-        
+        line = GetComponent<LineRenderer>();
+        line.SetPosition(1, newEnd);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Ray ray = new Ray(transform.position, this.direction);
+        RaycastHit hitData;
+        if (Physics.Raycast(ray, out hitData))
+        {
+
+        }
+
     }
+
+
+
 }

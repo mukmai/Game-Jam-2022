@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class LightSource : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public Vector3 direction;
+
+    public LightRay lightRay;
+
+    //add wave/particle to source
+    void addLightRay(Vector3 startPos, Vector3 lightDirection)
     {
-        
+        startPos = transform.position;
+        lightDirection = this.direction;
+
     }
 
     // Update is called once per frame
