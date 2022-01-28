@@ -158,3 +158,15 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: complete_mission
+    clip: {fileID: 8300000, guid: 79761ed0b3b3ccc4ba8b43bda7c18f2b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: failing_or error
+    clip: {fileID: 8300000, guid: a97917f3da3c66d469f8d907c1044a6a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
