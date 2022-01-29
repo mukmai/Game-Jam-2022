@@ -28,11 +28,26 @@ public class Particle : MonoBehaviour
     {
         transform.position += transform.forward * _speed * Time.deltaTime;
         
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hitData;
         int receiverMask = 1 << 10;
         int particleMask = 1 << 2;
         int gravityFieldMask = 1 <<11;
+
+        // Ray rayCheckGravityF = new Ray(transform.position, transform.forward);
+        // RaycastHit hitGravity;
+        // if (Physics.Raycast(rayCheckGravityF, out hitGravity, collider.radius, gravityFieldMask))
+        // {
+        //     //call hitObject function
+        //     hitGravity.transform.GetComponent<GravityField>().EnterGravityField(this);
+        // }
+
+        Collider[] gravityColliders = Physics.OverlapSphere(transform.position, collider.radius, gravityFieldMask);
+        foreach (Collider gravityCollider in gravityColliders)
+        {
+            gravityCollider.GetComponent<GravityField>().EnterGravityField(this);
+        }
+
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hitData;
         if (Physics.Raycast(ray, out hitData, collider.radius, ~(receiverMask | particleMask | gravityFieldMask)))
         {
             //call hitObject function
@@ -52,18 +67,6 @@ public class Particle : MonoBehaviour
             }
         }
 
-        Ray rayCheckGravityF = new Ray(transform.position, transform.forward);
-        RaycastHit[] hitGravityF;
-        hitGravityF = Physics.RaycastAll(rayCheckGravityF, collider.radius, gravityFieldMask);
-        for (int i = 0; i < hitGravityF.Length; i++)
-        {
-            RaycastHit hit = hitGravityF[i];
-            GravityField gravityF = hit.transform.GetComponent<GravityField>();
-            if (gravityF)
-            {
-                gravityF.EnterGravityField(this);
-            }
-        }
     }
 
     public void Remove()

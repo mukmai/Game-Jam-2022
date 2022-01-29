@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GravityField : MonoBehaviour
 {
+    [SerializeField] private float force = 10;
     public void EnterGravityField(Particle particle)
     {
-        particle.UpdateMoveDirection(transform.forward);
+        Vector3 newDirection = (particle.transform.forward + transform.forward * force * Time.deltaTime).normalized;
+        particle.UpdateMoveDirection(newDirection);
     }
 
 }
