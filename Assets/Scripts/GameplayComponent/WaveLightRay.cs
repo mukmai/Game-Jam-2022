@@ -51,6 +51,22 @@ public class WaveLightRay : LightRay
         converterChild.SetNewDirection(direction);
     }
 
+    public override void CreateOrUpdateRefractionChildren(Vector3 startPos, Vector3 endPos, Vector3 direction)
+    {
+        if (refractionChildren.Count==0)
+        {
+            refractionChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+            refractionChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+        }
+
+        refractionChildren[0].SetNewStart(startPos);
+        refractionChildren[0].SetNewEnd(endPos);
+        refractionChildren[1].SetNewStart(endPos);
+        refractionChildren[1].SetNewDirection(direction);
+        
+
+    }
+
     public override void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
         if (slitChildren.Count == 0)

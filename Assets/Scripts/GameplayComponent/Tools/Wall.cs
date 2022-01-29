@@ -11,6 +11,7 @@ public class Wall : LightRayHitTarget
         wave.RemoveReflectionChild();
         wave.RemoveSlitChildren();
         wave.RemoveConverterChild();
+        wave.RemoveRefractionChildren();
     }
 
     public override void HandleParticleInteraction(Particle particle)
