@@ -14,7 +14,6 @@ public class Slit : LightRayHitTarget
         }
         else
         {
-            Debug.Log((int)wave.colorCode);
             wave.RemoveSlitChildren();
         }
         wave.RemoveReflectionChild();

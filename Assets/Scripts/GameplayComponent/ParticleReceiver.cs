@@ -19,8 +19,12 @@ public class ParticleReceiver : LightReceiver
 
     public override void ReceivingLight(Transform fromTarget)
     {
-        base.ReceivingLight(fromTarget);
-        _hitCounter[fromTarget] = Time.time;
+        Particle fromTargetParticle = fromTarget.GetComponent<Particle>();
+        if (fromTargetParticle && fromTargetParticle.colorCode == colorCode)
+        {
+            base.ReceivingLight(fromTarget);
+            _hitCounter[fromTarget] = Time.time;
+        }
     }
 
     public override void UpdateReceiver()
