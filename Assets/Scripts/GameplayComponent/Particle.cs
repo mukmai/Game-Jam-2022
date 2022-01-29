@@ -37,6 +37,18 @@ public class Particle : MonoBehaviour
             hitData.transform.GetComponent<LightRayHitTarget>().HandleParticleInteraction(this);
         }
 
+        Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
+        RaycastHit[] hitReceivers;
+        hitReceivers = Physics.RaycastAll(rayCheckReceiver, collider.radius, receiverMask);
+        for (int i = 0; i < hitReceivers.Length; i++)
+        {
+            RaycastHit hit = hitReceivers[i];
+            LightReceiver hitReceiver = hit.transform.GetComponent<LightReceiver>();
+            if (hitReceiver && !hitReceiver.IsWaveSensor)
+            {
+                hitReceiver.ReceivingLight(transform);
+            }
+        }
     }
 
     public void Remove()

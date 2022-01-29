@@ -788,3 +788,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7330487d893611740999b621e4c794ff, type: 3}
+--- !u!1001 &7849092337910584842
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594195341418064416, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258434214099752099, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_Name
+      value: ParticleLightReceiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258434214099752099, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30f8a4b85d7271b498a477436049b251, type: 3}
