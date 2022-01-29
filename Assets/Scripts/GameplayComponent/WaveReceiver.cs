@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class WaveReceiver : LightReceiver
 {
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public override bool checkReceivingLight()
     {
-        WaveLightRay wave = collision.collider.GetComponent<WaveLightRay>();
-        //Vector3[] collisionPoints = wave.GetPositions();
-        if(wave != null) 
+        Vector3[] collisionPoints = wave.GetPositions();
+        foreach(Vector3 wavePoint in collisionPoints)
         {
-            _cloudParticles.Play();
-            _hitByWave =true;
+            if(this.position == wavePoint.position)
+            {
+                Reaction();
+                return true;
+            }
         }
-        else
-        {
-            _hitByWave = false;
-        }
-        return;
+    }
+
+    public override void Reaction()
+    {
+        _cloudParticles.Play();
     }
 }
