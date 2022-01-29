@@ -7,8 +7,9 @@ public class Slit : LightRayHitTarget
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
     {
         wave.SetNewEnd(hitPosition);
+        wave.CreateOrUpdateSlitChildren(hitPosition, -transform.forward);
         wave.RemoveReflectionChild();
-        wave.CreateOrUpdateSlitChildren(hitPosition, hitDirection);
+        wave.RemoveConverterChild();
     }
 
     public override void HandleParticleInteraction(Particle particle)
