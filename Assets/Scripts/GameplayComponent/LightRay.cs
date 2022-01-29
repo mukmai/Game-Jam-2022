@@ -17,6 +17,7 @@ public class LightRay : MonoBehaviour
     public LightRay reflectionChild;
     public LightRay converterChild;
     public List<LightRay> refractionChildren;
+    public LightRay refractionOutChild;
     public List<LightRay> slitChildren;
     [EnumFlag] public ColorCode colorCode;
     public int power;
@@ -77,6 +78,12 @@ public class LightRay : MonoBehaviour
             i.Remove();
         }
         refractionChildren.Clear();
+        
+        if (refractionOutChild)
+        {
+            refractionOutChild.Remove();
+        }
+        refractionOutChild = null;
     }
 
     public void Remove()
@@ -117,7 +124,7 @@ public class LightRay : MonoBehaviour
     {
     }
 
-    public virtual void CreateOrUpdateRefractionChildren(Vector3 startPos, Vector3 endPos, Vector3 direction)
+    public virtual void CreateOrUpdateRefractionChildren(List<Vector3> hitPositions, Vector3 outDirection)
     {
     }
 
@@ -139,9 +146,9 @@ public class LightRay : MonoBehaviour
         {
             converterChild.UpdateLightRay();
         }
-        if (refractionChildren.Count >= 2 && refractionChildren[1])
+        if (refractionOutChild)
         {
-            refractionChildren[1].UpdateLightRay();
+            refractionOutChild.UpdateLightRay();
         }
     }
 }

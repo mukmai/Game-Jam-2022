@@ -69,32 +69,83 @@ public class WaveLightRay : LightRay
         }
     }
 
-    public override void CreateOrUpdateRefractionChildren(Vector3 inPosition, Vector3 outPosition, Vector3 outDirection)
+    // public override void CreateOrUpdateRefractionChildren(Vector3 inPosition, Vector3 outPosition, Vector3 outDirection)
+    // {
+    //     if (refractionChildren.Count==0)
+    //     {
+    //         if (power > 0)
+    //         {
+    //             refractionChildren.Add(ObjectPool.Instance.CreateObject(
+    //                 GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+    //             refractionChildren.Add(ObjectPool.Instance.CreateObject(
+    //                 GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+    //         }
+    //     }
+    //
+    //     if (refractionChildren.Count > 0)
+    //     {
+    //         refractionChildren[0].SetColor(colorCode);
+    //         refractionChildren[0].SetPower(power - 1);
+    //         refractionChildren[0].SetNewStart(inPosition);
+    //         refractionChildren[0].SetNewEnd(outPosition);
+    //     
+    //         refractionChildren[1].SetColor(colorCode);
+    //         refractionChildren[1].SetPower(power - 2);
+    //         refractionChildren[1].SetNewStart(outPosition);
+    //         refractionChildren[1].SetNewDirection(outDirection);
+    //     }
+    // }
+    
+    public override void CreateOrUpdateRefractionChildren(List<Vector3> hitPositions, Vector3 outDirection)
     {
-        if (refractionChildren.Count==0)
+        int i;
+        
+        for (i = 0; i < Mathf.Min(hitPositions.Count - 1, power); i++)
         {
-            if (power > 0)
+            if (refractionChildren.Count <= i)
             {
                 refractionChildren.Add(ObjectPool.Instance.CreateObject(
                     GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
-                refractionChildren.Add(ObjectPool.Instance.CreateObject(
-                    GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+            }
+            
+            refractionChildren[i].SetColor(colorCode);
+            refractionChildren[i].SetPower(power - 1 - i);
+            refractionChildren[i].SetNewStart(hitPositions[i]);
+            refractionChildren[i].SetNewEnd(hitPositions[i+1]);
+        }
+        
+        // remove extra children
+        for (int j = refractionChildren.Count - 1; j >= i; j--)
+        {
+            refractionChildren[j].Remove();
+            refractionChildren.RemoveAt(j);
+        }
+
+        // add refraction out child if exist
+        if (!refractionOutChild && outDirection != Vector3.zero)
+        {
+            if (power > hitPositions.Count - 1)
+            {
+                refractionOutChild = ObjectPool.Instance.CreateObject(
+                    GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
             }
         }
 
-        if (refractionChildren.Count > 0)
+        // remove refraction out child if not exist
+        if (outDirection == Vector3.zero)
         {
-            refractionChildren[0].SetColor(colorCode);
-            refractionChildren[0].SetPower(power - 1);
-            refractionChildren[0].SetNewStart(inPosition);
-            refractionChildren[0].SetNewEnd(outPosition);
-        
-            refractionChildren[1].SetColor(colorCode);
-            refractionChildren[1].SetPower(power - 2);
-            refractionChildren[1].SetNewStart(outPosition);
-            refractionChildren[1].SetNewDirection(outDirection);
+            refractionOutChild.Remove();
+        }
+
+        if (refractionOutChild)
+        {
+            refractionOutChild.SetColor(colorCode);
+            refractionOutChild.SetPower(power - refractionChildren.Count - 1);
+            refractionOutChild.SetNewStart(hitPositions[hitPositions.Count - 1]);
+            refractionOutChild.SetNewDirection(outDirection);
         }
     }
+
 
     public override void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {

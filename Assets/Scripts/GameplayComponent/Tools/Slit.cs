@@ -14,7 +14,7 @@ public class Slit : LightRayHitTarget
         wave.RemoveRefractionChildren();
     }
 
-    public override void HandleParticleInteraction(Particle particle)
+    public override void HandleParticleInteraction(Particle particle, Vector3 normalDirection)
     {
     }
 }

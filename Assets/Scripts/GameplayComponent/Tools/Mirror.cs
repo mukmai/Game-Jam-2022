@@ -13,10 +13,10 @@ public class Mirror : LightRayHitTarget
         wave.CreateOrUpdateReflectionChild(hitPosition, Vector3.Reflect(hitDirection, normalDirection).RemoveY());
     }
 
-    public override void HandleParticleInteraction(Particle particle)
+    public override void HandleParticleInteraction(Particle particle, Vector3 normalDirection)
     {
         var reflectedDir = Vector3.Reflect(particle.transform.forward,
-            transform.forward).RemoveY();
+            normalDirection).RemoveY();
         particle.UpdateMoveDirection(reflectedDir);
     }
 }

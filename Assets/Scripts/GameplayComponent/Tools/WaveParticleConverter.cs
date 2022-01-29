@@ -25,7 +25,7 @@ public class WaveParticleConverter : LightRayHitTarget
         wave.CreateOrUpdateConverterChild(childShootTransform.position, childShootTransform.forward);
     }
 
-    public override void HandleParticleInteraction(Particle particle)
+    public override void HandleParticleInteraction(Particle particle, Vector3 normalDirection)
     {
         particle.Remove();
         // calculate particle/sec

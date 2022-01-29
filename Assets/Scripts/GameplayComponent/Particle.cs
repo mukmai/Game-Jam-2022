@@ -14,6 +14,7 @@ public class Particle : MonoBehaviour
     [EnumFlag] public ColorCode colorCode;
     [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
     public int power;
+    public bool withinRefractionMedium;
 
     public void Init(Vector3 forward, ParticleLightRay lightRay)
     {
@@ -23,6 +24,7 @@ public class Particle : MonoBehaviour
         UpdateMoveDirection(forward);
         power = lightRay.power;
         SetColor(lightRay.colorCode);
+        withinRefractionMedium = false;
     }
 
     public void SetColor(ColorCode colorCode)
@@ -69,7 +71,7 @@ public class Particle : MonoBehaviour
         if (Physics.Raycast(ray, out hitData, collider.radius, ~(receiverMask | particleMask | gravityFieldMask)))
         {
             //call hitObject function
-            hitData.transform.GetComponent<LightRayHitTarget>().HandleParticleInteraction(this);
+            hitData.transform.GetComponent<LightRayHitTarget>().HandleParticleInteraction(this, hitData.normal);
         }
 
         Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
@@ -85,6 +87,23 @@ public class Particle : MonoBehaviour
             }
         }
 
+        if (withinRefractionMedium)
+        {
+            ray = new Ray(transform.position + transform.forward * collider.radius, -transform.forward);
+            RaycastHit[] hitObjects;
+            hitObjects = Physics.RaycastAll(ray, collider.radius, ~(receiverMask | particleMask | gravityFieldMask));
+            for (int i = 0; i < hitObjects.Length; i++)
+            {
+                RaycastHit hit = hitObjects[i];
+                RefractionMedium refractionMedium = hit.transform.GetComponent<RefractionMedium>();
+                if (refractionMedium)
+                {
+                    refractionMedium.HandleParticleInteraction(this, hit.normal);
+                    break;
+                }
+
+            }
+        }
     }
 
     public void Remove()
