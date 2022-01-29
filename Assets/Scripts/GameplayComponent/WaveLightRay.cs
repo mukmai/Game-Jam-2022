@@ -81,7 +81,8 @@ public class WaveLightRay : LightRay
         RaycastHit hitData;
         int receiverMask = 1 << 10;
         int particleMask = 1 << 2;
-        if (Physics.Raycast(ray, out hitData, 100, ~(receiverMask | particleMask)))
+        int gravityFieldMask = 1 <<11;
+        if (Physics.Raycast(ray, out hitData, 100, ~(receiverMask | particleMask | gravityFieldMask)))
         {
             //call hitObject function
             hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
