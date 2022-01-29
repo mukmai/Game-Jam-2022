@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wall : LightRayHitTarget
 {
-    public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection)
+    public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection, Vector3 normalDirection)
     {
         // tell wave to remove all children
         wave.SetNewEnd(hitPosition);

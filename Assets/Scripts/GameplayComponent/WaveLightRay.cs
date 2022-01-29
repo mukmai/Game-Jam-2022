@@ -23,66 +23,109 @@ public class WaveLightRay : LightRay
         _currEndPoint = newEnd;
     }
 
+    public override void SetColor(ColorCode colorCode)
+    {
+        this.colorCode = colorCode;
+        line.LineColor = colorCode.ToColor();
+    }
 
     public override void CreateOrUpdateReflectionChild(Vector3 startPos,Vector3 direction)
     {
         if (!reflectionChild)
         {
-            reflectionChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+            if (power > 0)
+            {
+                reflectionChild = ObjectPool.Instance.CreateObject(
+                    GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+            }
         }
-        
-        reflectionChild.SetNewStart(startPos);
-        reflectionChild.SetNewDirection(direction);
+
+        if (reflectionChild)
+        {
+            reflectionChild.SetColor(colorCode);
+            reflectionChild.SetPower(power - 1);
+            reflectionChild.SetNewStart(startPos);
+            reflectionChild.SetNewDirection(direction);
+        }
     }
 
     public override void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
     {
         if (!converterChild)
         {
-            converterChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleLightRayGameObject).GetComponent<LightRay>();
+            if (power > 0)
+            {
+                converterChild = ObjectPool.Instance.CreateObject(
+                    GameplayManager.Instance.particleLightRayGameObject).GetComponent<LightRay>();
+            }
         }
-        
-        converterChild.SetNewStart(startPos);
-        converterChild.SetNewDirection(direction);
+
+        if (converterChild)
+        {
+            converterChild.SetColor(colorCode);
+            converterChild.SetPower(power - 1);
+            converterChild.SetNewStart(startPos);
+            converterChild.SetNewDirection(direction);
+        }
     }
 
-    public override void CreateOrUpdateRefractionChildren(Vector3 startPos, Vector3 endPos, Vector3 direction)
+    public override void CreateOrUpdateRefractionChildren(Vector3 inPosition, Vector3 outPosition, Vector3 outDirection)
     {
         if (refractionChildren.Count==0)
         {
-            refractionChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
-            refractionChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+            if (power > 0)
+            {
+                refractionChildren.Add(ObjectPool.Instance.CreateObject(
+                    GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+                refractionChildren.Add(ObjectPool.Instance.CreateObject(
+                    GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+            }
         }
 
-        refractionChildren[0].SetNewStart(startPos);
-        refractionChildren[0].SetNewEnd(endPos);
-        refractionChildren[1].SetNewStart(endPos);
-        refractionChildren[1].SetNewDirection(direction);
+        if (refractionChildren.Count > 0)
+        {
+            refractionChildren[0].SetColor(colorCode);
+            refractionChildren[0].SetPower(power - 1);
+            refractionChildren[0].SetNewStart(inPosition);
+            refractionChildren[0].SetNewEnd(outPosition);
         
-
+            refractionChildren[1].SetColor(colorCode);
+            refractionChildren[1].SetPower(power - 2);
+            refractionChildren[1].SetNewStart(outPosition);
+            refractionChildren[1].SetNewDirection(outDirection);
+        }
     }
 
     public override void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
         if (slitChildren.Count == 0)
         {
-            for (int i=0; i<3; i++)
+            if (power > 0)
             {
-                slitChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+                for (int i=0; i<3; i++)
+                {
+                    slitChildren.Add(ObjectPool.Instance.CreateObject(
+                        GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
+                }
             }
         }
 
-        for (int i = 0; i < 3; i++)
+        if (slitChildren.Count > 0)
         {
-            slitChildren[i].SetNewStart(startPos);
+            for (int i = 0; i < 3; i++)
+            {
+                slitChildren[i].SetPower(power - 1);
+                slitChildren[i].SetNewStart(startPos);
+            }
+
+            slitChildren[0].SetNewDirection(Quaternion.Euler(0, 45, 0) * direction);
+            slitChildren[1].SetNewDirection(direction);
+            slitChildren[2].SetNewDirection(Quaternion.Euler(0, -45, 0) * direction);
+
+            slitChildren[0].SetColor(ColorCode.Red);
+            slitChildren[1].SetColor(ColorCode.Yellow);
+            slitChildren[2].SetColor(ColorCode.Blue);
         }
-
-        slitChildren[0].SetNewDirection(Quaternion.Euler(0, 45, 0) * direction);
-        slitChildren[1].SetNewDirection(direction);
-        slitChildren[2].SetNewDirection(Quaternion.Euler(0, -45, 0) * direction);
-
-        //TODO cases for different color
-        
     }
 
     // Update is called once per frame
@@ -96,7 +139,8 @@ public class WaveLightRay : LightRay
         if (Physics.Raycast(ray, out hitData, 100, ~(receiverMask | particleMask | gravityFieldMask)))
         {
             //call hitObject function
-            hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
+            hitData.transform.GetComponent<LightRayHitTarget>().
+                HandleWaveInteraction(this,hitData.point,transform.forward, hitData.normal);
         }
         
         Ray rayCheckReceiver = new Ray(transform.position, transform.forward);

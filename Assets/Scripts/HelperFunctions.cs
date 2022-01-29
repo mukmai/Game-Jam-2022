@@ -20,6 +20,8 @@ public static class HelperFunctions
     {
         switch (colorCode)
         {
+            case ColorCode.None:
+                return Color.gray;
             case ColorCode.Red:
                 return Color.red;
             case ColorCode.Yellow:

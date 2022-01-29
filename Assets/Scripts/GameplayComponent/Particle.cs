@@ -13,14 +13,22 @@ public class Particle : MonoBehaviour
     public SphereCollider collider;
     [EnumFlag] public ColorCode colorCode;
     [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
+    public int power;
 
-    public void Init(Vector3 forward, ColorCode colorCode)
+    public void Init(Vector3 forward, ParticleLightRay lightRay)
     {
         line.StartPos = Vector3.forward * 0.025f;
         line.EndPos = Vector3.forward * -0.025f;
         _lifeEndTime = Time.time + _lifeDuration;
-        line.LineColor = colorCode.ToColor();
         UpdateMoveDirection(forward);
+        power = lightRay.power;
+        SetColor(lightRay.colorCode);
+    }
+
+    public void SetColor(ColorCode colorCode)
+    {
+        this.colorCode = colorCode;
+        line.LineColor = colorCode.ToColor();
     }
 
     public void UpdateMoveDirection(Vector3 direction)

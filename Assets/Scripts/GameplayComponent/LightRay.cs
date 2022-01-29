@@ -6,6 +6,7 @@ using UnityEngine;
 
 [Flags] public enum ColorCode
 {
+    None = 0,
     Red = 1,
     Yellow = 2,
     Blue = 4
@@ -25,14 +26,9 @@ public class LightRay : MonoBehaviour
     {
         parent = null;
         slitChildren = new List<LightRay>();
+        refractionChildren = new List<LightRay>();
     }
-
-    //add new node
-    public void Add(LightRay lightRay)
-    {
-        slitChildren.Add(lightRay);
-    }
-
+    
     public virtual void SetColor(ColorCode colorCode)
     {
         
@@ -143,7 +139,7 @@ public class LightRay : MonoBehaviour
         {
             converterChild.UpdateLightRay();
         }
-        if (refractionChildren[1])
+        if (refractionChildren.Count >= 2 && refractionChildren[1])
         {
             refractionChildren[1].UpdateLightRay();
         }

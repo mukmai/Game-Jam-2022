@@ -75,6 +75,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5652173520226116197, guid: 2a0509832b113894f89405f402698903, type: 3}
+      propertyPath: colorCode
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7153628808742661400, guid: 2a0509832b113894f89405f402698903, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -754,6 +758,10 @@ PrefabInstance:
     - target: {fileID: 8241253835033841679, guid: 93a7bd19610e68b4682683c55c60f475, type: 3}
       propertyPath: m_Name
       value: ParticleSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820004149400169741, guid: 93a7bd19610e68b4682683c55c60f475, type: 3}
+      propertyPath: colorCode
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93a7bd19610e68b4682683c55c60f475, type: 3}
