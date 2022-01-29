@@ -5,31 +5,22 @@ using UnityEngine;
 public class LightReceiver : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _cloudParticles;
-    //Color _desirecolor = GetComponent<LightReceiver>().color;
-    void Start()
+    Color _desirecolor = GetComponent<LightReceiver>().color;
+
+    void Awake()
     {
-        bool _hitByWave =false;
+        bool hit =false;
+        gameObject.layer = 2;
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public virtual void Reaction()
     {
-        WaveLightRay wave = collision.collider.GetComponent<WaveLightRay>();
-        //Vector3[] collisionPoints = wave.GetPositions();
-        if(wave != null) 
-        {
-            _cloudParticles.Play();
-            _hitByWave =true;
-        }
-        else
-        {
-            _hitByWave = false;
-        }
-        return;
+
     }
 
-    public virtual bool ReceivingLight()
+    public virtual bool CheckReceivingLight()
     {
-        return _hitByWave;
+        return hit;
     }
 
 
