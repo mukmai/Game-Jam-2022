@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class ParticleReceiver : LightReceiver
 {
-   
+    public override bool IsWaveSensor => false;
+
 }

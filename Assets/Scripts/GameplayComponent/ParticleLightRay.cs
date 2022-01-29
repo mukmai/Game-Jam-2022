@@ -7,7 +7,7 @@ public class ParticleLightRay : LightRay
     public List<Particle> particles;
     public Vector3 startPos, endPos;
     private float _lastShootParticleTime;
-    private float shootParticleInterval = 0.1f;
+    public static float shootParticleInterval = 0.2f;
 
     public ParticleLightRay()
     {
@@ -25,6 +25,18 @@ public class ParticleLightRay : LightRay
     {
         base.SetNewStart(newStartPos);
     }
+    
+    public override void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
+    {
+        if (!converterChild)
+        {
+            converterChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+        }
+        
+        converterChild.SetNewStart(startPos);
+        converterChild.SetNewDirection(direction);
+    }
+
 
     // Update is called once per frame
     public override void UpdateLightRay()

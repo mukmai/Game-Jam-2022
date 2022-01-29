@@ -70,13 +70,26 @@ public class GameplayManager : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_currGameLevel)
         {
+            foreach (var lightReceiver in _currGameLevel.lightReceivers)
+            {
+                lightReceiver.UpdateReceiver();
+            }
             foreach (var lightSource in _currGameLevel.lightSources)
             {
                 lightSource.UpdateLightSource();
+            }
+            foreach (var waveParticleConverter in _currGameLevel.waveParticleConverters)
+            {
+                waveParticleConverter.UpdateConverter();
+            }
+
+            if (_currGameLevel.WinConditionFulfilled())
+            {
+                Debug.Log("Win level");
             }
         }
     }

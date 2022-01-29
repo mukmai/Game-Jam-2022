@@ -6,6 +6,7 @@ public class LightRay : MonoBehaviour
 {
     public LightRay parent;
     public LightRay reflectionChild;
+    public LightRay converterChild;
     public List<LightRay> slitChildren;
 
     //constructors
@@ -42,8 +43,21 @@ public class LightRay : MonoBehaviour
         reflectionChild = null;
     }
 
+    public void RemoveConverterChild()
+    {
+        if (converterChild)
+        {
+            converterChild.Remove();
+        }
+
+        converterChild = null;
+    }
+
     public void Remove()
     {
+        RemoveSlitChildren();
+        RemoveReflectionChild();
+        RemoveConverterChild();
         ObjectPool.Instance.DestroyObject(gameObject);
     }
 
@@ -66,6 +80,11 @@ public class LightRay : MonoBehaviour
     public virtual void CreateOrUpdateReflectionChild(Vector3 startPos, Vector3 direction)
     {
     }
+    
+    public virtual void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
+    {
+    }
+
 
     public virtual void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
@@ -78,12 +97,16 @@ public class LightRay : MonoBehaviour
         //start point update
         foreach (LightRay i in slitChildren)
         {
-            UpdateLightRay();
+            i.UpdateLightRay();
         }
 
         if (reflectionChild)
         {
             reflectionChild.UpdateLightRay();
+        }
+        if (converterChild)
+        {
+            converterChild.UpdateLightRay();
         }
         
     }

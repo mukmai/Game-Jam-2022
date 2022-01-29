@@ -15,5 +15,4 @@ public static class HelperFunctions
 
         return Camera.main.ScreenToWorldPoint(mousePoint).RemoveY();
     }
-
 }

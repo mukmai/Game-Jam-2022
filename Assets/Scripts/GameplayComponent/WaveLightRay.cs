@@ -10,6 +10,7 @@ public class WaveLightRay : LightRay
     void Awake()
     {
         line = GetComponent<LineRenderer>();
+        
     }
 
     //set new start
@@ -36,13 +37,24 @@ public class WaveLightRay : LightRay
         reflectionChild.SetNewDirection(direction);
     }
 
+    public override void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
+    {
+        if (!converterChild)
+        {
+            converterChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleLightRayGameObject).GetComponent<LightRay>();
+        }
+        
+        converterChild.SetNewStart(startPos);
+        converterChild.SetNewDirection(direction);
+    }
+
     public override void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
         if (slitChildren.Count == 0)
         {
             for (int i=0; i<3; i++)
             {
-                slitChildren[i] = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+                slitChildren.Add(ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>());
             }
         }
 
@@ -64,11 +76,27 @@ public class WaveLightRay : LightRay
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
-        if (Physics.Raycast(ray, out hitData))
+        int receiverMask = 1 << 10;
+        int particleMask = 1 << 2;
+        if (Physics.Raycast(ray, out hitData, 100, ~(receiverMask | particleMask)))
         {
             //call hitObject function
             hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
-
+        }
+        
+        Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
+        RaycastHit[] hitReceivers;
+        float distance = Vector3.Distance(line.GetPosition(1), line.GetPosition(0));
+        hitReceivers = Physics.RaycastAll(rayCheckReceiver, distance, receiverMask);
+        for (int i = 0; i < hitReceivers.Length; i++)
+        {
+            RaycastHit hit = hitReceivers[i];
+            LightReceiver hitReceiver = hit.transform.GetComponent<LightReceiver>();
+            if (hitReceiver && hitReceiver.IsWaveSensor)
+            {
+                // Debug.Log("hit " + hitReceiver.name);
+                hitReceiver.ReceivingLight(transform);
+            }
         }
         
         base.UpdateLightRay();
