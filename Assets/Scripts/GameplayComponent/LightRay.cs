@@ -6,7 +6,6 @@ using UnityEngine;
 
 [Flags] public enum ColorCode
 {
-    None = 0,
     Red = 1,
     Yellow = 2,
     Blue = 4

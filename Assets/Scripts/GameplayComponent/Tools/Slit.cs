@@ -8,7 +8,15 @@ public class Slit : LightRayHitTarget
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection, Vector3 normalDirection)
     {
         wave.SetNewEnd(hitPosition);
-        wave.CreateOrUpdateSlitChildren(outTransform.position, -transform.forward);
+        if ((int)wave.colorCode == -1)
+        {
+            wave.CreateOrUpdateSlitChildren(outTransform.position, -transform.forward);
+        }
+        else
+        {
+            Debug.Log((int)wave.colorCode);
+            wave.RemoveSlitChildren();
+        }
         wave.RemoveReflectionChild();
         wave.RemoveConverterChild();
         wave.RemoveRefractionChildren();
