@@ -1,28 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WaveLightRay : LightRay
 {
+    [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
+
+    private Vector3 _currEndPoint;
+
+    // private void Start()
+    // {
+    //     line.LineColor = new Color(Random.Range(0,1f), Random.Range(0,1f), Random.Range(0,1f));
+    // }
     
-    LineRenderer line;
-
-    void Awake()
-    {
-        line = GetComponent<LineRenderer>();
-        
-    }
-
     //set new start
     public override void SetNewStart(Vector3 newStartPos)
     {
         base.SetNewStart(newStartPos);
-        line.SetPosition(0, newStartPos);
+        line.StartPos = transform.InverseTransformPoint(newStartPos);
     }
 
     public override void SetNewEnd (Vector3 newEnd)
     {
-        line.SetPosition(1, newEnd);
+        line.EndPos = transform.InverseTransformPoint(newEnd);
+        _currEndPoint = newEnd;
     }
 
 
@@ -86,7 +89,7 @@ public class WaveLightRay : LightRay
         
         Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
         RaycastHit[] hitReceivers;
-        float distance = Vector3.Distance(line.GetPosition(1), line.GetPosition(0));
+        float distance = Vector3.Distance(transform.position, _currEndPoint);
         hitReceivers = Physics.RaycastAll(rayCheckReceiver, distance, receiverMask);
         for (int i = 0; i < hitReceivers.Length; i++)
         {

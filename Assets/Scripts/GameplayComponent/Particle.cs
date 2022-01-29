@@ -9,23 +9,24 @@ public class Particle : MonoBehaviour
     private float _speed = 7;
     public Rigidbody rigidbody;
     public SphereCollider collider;
-    public void Init(Vector3 forward)
+    [EnumFlag] public ColorCode colorCode;
+    [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
+
+    public void Init(Vector3 forward, ColorCode colorCode)
     {
+        line.StartPos = Vector3.forward * 0.025f;
+        line.EndPos = Vector3.forward * -0.025f;
         UpdateMoveDirection(forward);
     }
 
     public void UpdateMoveDirection(Vector3 direction)
     {
         transform.forward = direction;
-        // rigidbody.velocity = transform.forward * _speed;
     }
 
     private void FixedUpdate()
     {
         transform.position += transform.forward * _speed * Time.deltaTime;
-        // Collider[] hitColliders = Physics.OverlapSphere(transform.position, collider.radius);
-        // List<EnemyRuntime> enemiesInRange = hitColliders.Where(x => x.gameObject.CompareTag("Enemy")).
-        //     Select(x => x.gameObject.GetComponent<EnemyRuntime>()).ToList();
         
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;

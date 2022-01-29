@@ -45,7 +45,7 @@ public class ParticleLightRay : LightRay
         {
             var currParticle = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleGameObject, 
                 localPos: transform.position).GetComponent<Particle>();
-            currParticle.Init(transform.forward);
+            currParticle.Init(transform.forward, colorCode);
             _lastShootParticleTime = Time.time;
         }
     }

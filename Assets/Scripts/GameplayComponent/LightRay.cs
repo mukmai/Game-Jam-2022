@@ -1,13 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
+[Flags] public enum ColorCode
+{
+    Red = 1,
+    Yellow = 2,
+    Blue = 4
+}
 public class LightRay : MonoBehaviour
 {
     public LightRay parent;
     public LightRay reflectionChild;
     public LightRay converterChild;
     public List<LightRay> slitChildren;
+    [EnumFlag] public ColorCode colorCode;
 
     //constructors
     public LightRay()
@@ -109,5 +118,36 @@ public class LightRay : MonoBehaviour
             converterChild.UpdateLightRay();
         }
         
+    }
+}
+
+public class EnumFlagAttribute : PropertyAttribute
+{
+    public string name;
+
+    public EnumFlagAttribute() { }
+
+    public EnumFlagAttribute(string name)
+    {
+        this.name = name;
+    }
+}
+
+[CustomPropertyDrawer(typeof(EnumFlagAttribute))]
+public class EnumFlagDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EnumFlagAttribute flagSettings = (EnumFlagAttribute)attribute;
+        Enum targetEnum = (Enum)fieldInfo.GetValue(property.serializedObject.targetObject);
+
+        string propName = flagSettings.name;
+        if (string.IsNullOrEmpty(propName))
+            propName = ObjectNames.NicifyVariableName(property.name);
+
+        EditorGUI.BeginProperty(position, label, property);
+        Enum enumNew = EditorGUI.EnumMaskPopup(position, propName, targetEnum);
+        property.intValue = (int)Convert.ChangeType(enumNew, targetEnum.GetType());
+        EditorGUI.EndProperty();
     }
 }
