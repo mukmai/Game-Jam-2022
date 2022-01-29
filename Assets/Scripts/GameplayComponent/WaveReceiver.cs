@@ -15,8 +15,12 @@ public class WaveReceiver : LightReceiver
 
     public override void ReceivingLight(Transform fromTarget)
     {
-        base.ReceivingLight(fromTarget);
-        getHitThisFrame = true;
+        WaveLightRay fromTargetLightRay = fromTarget.GetComponent<WaveLightRay>();
+        if (fromTargetLightRay && fromTargetLightRay.colorCode == colorCode)
+        {
+            base.ReceivingLight(fromTarget);
+            getHitThisFrame = true;
+        }
     }
 
     public override void UpdateReceiver()

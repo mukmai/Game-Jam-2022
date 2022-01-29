@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 public class WaveLightRay : LightRay
 {
     [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
+    [SerializeField] private ParticleSystem startGlow;
+    [SerializeField] private ParticleSystem endGlow;
 
     private Vector3 _currEndPoint;
 
@@ -15,18 +17,24 @@ public class WaveLightRay : LightRay
     {
         base.SetNewStart(newStartPos);
         line.StartPos = transform.InverseTransformPoint(newStartPos);
+        startGlow.transform.position = transform.position;
     }
 
     public override void SetNewEnd (Vector3 newEnd)
     {
         line.EndPos = transform.InverseTransformPoint(newEnd);
         _currEndPoint = newEnd;
+        startGlow.transform.position = newEnd;
     }
 
     public override void SetColor(ColorCode colorCode)
     {
         this.colorCode = colorCode;
         line.LineColor = colorCode.ToColor();
+        var startMain = startGlow.main;
+        startMain.startColor = colorCode.ToColor();
+        var endMain = endGlow.main;
+        endMain.startColor = colorCode.ToColor();
     }
 
     public override void CreateOrUpdateReflectionChild(Vector3 startPos,Vector3 direction)
