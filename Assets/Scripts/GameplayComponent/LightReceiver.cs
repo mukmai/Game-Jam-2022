@@ -13,12 +13,12 @@ public class LightReceiver : MonoBehaviour
         gameObject.layer = 2;
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public virtual void Reaction()
     {
 
     }
 
-    public virtual bool ReceivingLight()
+    public virtual bool CheckReceivingLight()
     {
         return hit;
     }
