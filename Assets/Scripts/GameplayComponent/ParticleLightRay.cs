@@ -5,7 +5,6 @@ using UnityEngine;
 public class ParticleLightRay : LightRay
 {
     public List<Particle> particles;
-    public float unitDist = 10;
     public Vector3 startPos, endPos;
     private float _lastShootParticleTime;
     private float shootParticleInterval = 0.1f;

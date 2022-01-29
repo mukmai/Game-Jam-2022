@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class LightReceiver : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _cloudParticles;
-    Color _desirecolor = GetComponent<LightReceiver>().color;
+    
 
     void Awake()
     {
@@ -18,9 +17,9 @@ public class LightReceiver : MonoBehaviour
 
     }
 
-    public virtual bool CheckReceivingLight()
+    public virtual bool ReceivingLight()
     {
-        return hit;
+        return false;
     }
 
 
