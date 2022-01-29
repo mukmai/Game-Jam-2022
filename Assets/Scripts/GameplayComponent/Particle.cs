@@ -31,7 +31,8 @@ public class Particle : MonoBehaviour
         RaycastHit hitData;
         int receiverMask = 1 << 10;
         int particleMask = 1 << 2;
-        if (Physics.Raycast(ray, out hitData, collider.radius, ~(receiverMask | particleMask)))
+        int gravityFieldMask = 1 <<11;
+        if (Physics.Raycast(ray, out hitData, collider.radius, ~(receiverMask | particleMask | gravityFieldMask)))
         {
             //call hitObject function
             hitData.transform.GetComponent<LightRayHitTarget>().HandleParticleInteraction(this);
@@ -47,6 +48,19 @@ public class Particle : MonoBehaviour
             if (hitReceiver && !hitReceiver.IsWaveSensor)
             {
                 hitReceiver.ReceivingLight(transform);
+            }
+        }
+
+        Ray rayCheckGravityF = new Ray(transform.position, transform.forward);
+        RaycastHit[] hitGravityF;
+        hitGravityF = Physics.RaycastAll(rayCheckGravityF, collider.radius, gravityFieldMask);
+        for (int i = 0; i < hitGravityF.Length; i++)
+        {
+            RaycastHit hit = hitGravityF[i];
+            GravityField gravityF = hit.transform.GetComponent<GravityField>();
+            if (gravityF)
+            {
+                gravityF.EnterGravityField(this);
             }
         }
     }
