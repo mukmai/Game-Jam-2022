@@ -10,7 +10,7 @@ public class LightReceiver : MonoBehaviour
     void Awake()
     {
         hit = false;
-        gameObject.layer =  LayerMask.GetMask("Ignore Raycast");
+        gameObject.layer =  LayerMask.GetMask("Receiver");
     }
 
     public virtual void Reaction()
@@ -31,7 +31,7 @@ public class LightReceiver : MonoBehaviour
 
     private void UpdateReceiver()
     {
-
+        
     }
 
 }

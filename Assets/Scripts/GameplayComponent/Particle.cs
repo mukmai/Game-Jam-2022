@@ -29,7 +29,8 @@ public class Particle : MonoBehaviour
         
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
-        if (Physics.Raycast(ray, out hitData, collider.radius))
+        LayerMask  mask = LayerMask.GetMask("Receiver");
+        if (Physics.Raycast(ray, out hitData, collider.radius, mask))
         {
             //call hitObject function
             hitData.transform.GetComponent<LightRayHitTarget>().HandleParticleInteraction(this);
