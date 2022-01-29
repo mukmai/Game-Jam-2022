@@ -10,6 +10,7 @@ public class WaveLightRay : LightRay
     void Awake()
     {
         line = GetComponent<LineRenderer>();
+        
     }
 
     //set new start
@@ -82,6 +83,17 @@ public class WaveLightRay : LightRay
 
         }
         
+        Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
+        RaycastHit[] hitReceivers;
+        LayerMask  mask = LayerMask.GetMask("Default", "TransprntFX", "Water", "UI");
+        float distance = Vector3.Distance(line.GetPosition(1), line.GetPosition(0));
+        hitReceivers = Physics.RaycastAll(rayCheckReceiver, distance, mask);
+        for (int i = 0; i < hitReceivers.Length; i++)
+        {
+            RaycastHit hit = hitReceivers[i];
+            hit.transform.GetComponent<LightReceiver>().SetHit(true);
+        }
+
         base.UpdateLightRay();
     }
 
