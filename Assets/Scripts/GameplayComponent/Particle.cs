@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
-    private float _speed = 7;
+    private float _speed = 6;
+    private float _lifeDuration = 10;
+    private float _lifeEndTime;
     public Rigidbody rigidbody;
     public SphereCollider collider;
     [EnumFlag] public ColorCode colorCode;
@@ -16,6 +18,8 @@ public class Particle : MonoBehaviour
     {
         line.StartPos = Vector3.forward * 0.025f;
         line.EndPos = Vector3.forward * -0.025f;
+        _lifeEndTime = Time.time + _lifeDuration;
+        line.LineColor = colorCode.ToColor();
         UpdateMoveDirection(forward);
     }
 
@@ -26,6 +30,12 @@ public class Particle : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_lifeEndTime < Time.time)
+        {
+            Remove();
+            return;
+        }
+        
         transform.position += transform.forward * _speed * Time.deltaTime;
         
         int receiverMask = 1 << 10;

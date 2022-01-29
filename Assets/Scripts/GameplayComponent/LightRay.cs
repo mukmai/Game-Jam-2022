@@ -17,6 +17,7 @@ public class LightRay : MonoBehaviour
     public LightRay converterChild;
     public List<LightRay> slitChildren;
     [EnumFlag] public ColorCode colorCode;
+    public int power;
 
     //constructors
     public LightRay()
@@ -29,6 +30,16 @@ public class LightRay : MonoBehaviour
     public void Add(LightRay lightRay)
     {
         slitChildren.Add(lightRay);
+    }
+
+    public virtual void SetColor(ColorCode colorCode)
+    {
+        
+    }
+
+    public void SetPower(int val)
+    {
+        power = val;
     }
 
     //remove lightRay as node, set inactive

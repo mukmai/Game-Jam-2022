@@ -10,11 +10,6 @@ public class WaveLightRay : LightRay
 
     private Vector3 _currEndPoint;
 
-    // private void Start()
-    // {
-    //     line.LineColor = new Color(Random.Range(0,1f), Random.Range(0,1f), Random.Range(0,1f));
-    // }
-    
     //set new start
     public override void SetNewStart(Vector3 newStartPos)
     {

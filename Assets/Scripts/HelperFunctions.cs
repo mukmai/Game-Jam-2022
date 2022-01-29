@@ -16,7 +16,7 @@ public static class HelperFunctions
         return Camera.main.ScreenToWorldPoint(mousePoint).RemoveY();
     }
 
-    public static Color ConvertToColor(this ColorCode colorCode)
+    public static Color ToColor(this ColorCode colorCode)
     {
         switch (colorCode)
         {
