@@ -13,6 +13,10 @@ public class GameLevel : MonoBehaviour
     {
         lightSources = GetComponentsInChildren<LightSource>().ToList();
         lightReceivers = GetComponentsInChildren<LightReceiver>().ToList();
+        foreach (var lightReceiver in lightReceivers)
+        {
+            lightReceiver.Init();
+        }
         waveParticleConverters = GetComponentsInChildren<WaveParticleConverter>().ToList();
         foreach (var converter in waveParticleConverters)
         {
@@ -37,9 +41,10 @@ public class GameLevel : MonoBehaviour
     
     public bool WinConditionFulfilled()
     {
+        if (lightReceivers.Count == 0) return false;
         foreach (var receiver in lightReceivers)
         {
-            if (!receiver.ReceivingLight())
+            if (!receiver.IsCompleted())
             {
                 return false;
             }

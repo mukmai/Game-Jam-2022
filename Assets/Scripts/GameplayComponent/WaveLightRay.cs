@@ -76,25 +76,29 @@ public class WaveLightRay : LightRay
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hitData;
-        LayerMask  mask = LayerMask.GetMask("Receiver");
-        if (Physics.Raycast(ray, out hitData, mask))
+        int receiverMask = 1 << 10;
+        int particleMask = 1 << 2;
+        if (Physics.Raycast(ray, out hitData, 100, ~(receiverMask | particleMask)))
         {
             //call hitObject function
             hitData.transform.GetComponent<LightRayHitTarget>().HandleWaveInteraction(this,hitData.point,transform.forward);
-
         }
         
         Ray rayCheckReceiver = new Ray(transform.position, transform.forward);
         RaycastHit[] hitReceivers;
-        mask = LayerMask.GetMask("Default", "TransparentFX", "Water", "UI");
         float distance = Vector3.Distance(line.GetPosition(1), line.GetPosition(0));
-        hitReceivers = Physics.RaycastAll(rayCheckReceiver, distance, mask);
+        hitReceivers = Physics.RaycastAll(rayCheckReceiver, distance, receiverMask);
         for (int i = 0; i < hitReceivers.Length; i++)
         {
             RaycastHit hit = hitReceivers[i];
-            hit.transform.GetComponent<LightReceiver>().SetHit(true);
+            LightReceiver hitReceiver = hit.transform.GetComponent<LightReceiver>();
+            if (hitReceiver && hitReceiver.IsWaveSensor)
+            {
+                // Debug.Log("hit " + hitReceiver.name);
+                hitReceiver.ReceivingLight(transform);
+            }
         }
-
+        
         base.UpdateLightRay();
     }
 

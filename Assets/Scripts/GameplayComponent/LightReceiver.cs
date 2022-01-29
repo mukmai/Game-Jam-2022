@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,33 +6,23 @@ using UnityEngine;
 public class LightReceiver : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _cloudParticles;
-    bool hit;
+    public virtual bool IsWaveSensor => true;
 
-    void Awake()
+    public virtual void Init()
     {
-        hit = false;
-        gameObject.layer =  LayerMask.GetMask("Receiver");
+        gameObject.layer = 10; 
+    }
+    
+    public virtual void ReceivingLight(Transform fromTarget)
+    {
     }
 
-    public virtual void Reaction()
+    public virtual void UpdateReceiver()
     {
-        _cloudParticles.Play();
     }
 
-    public virtual void SetHit(bool flag)
+    public virtual bool IsCompleted()
     {
-        if (!hit && flag) Reaction();
-        hit = flag;
+        return false;
     }
-
-    public virtual bool ReceivingLight()
-    {
-        return hit;
-    }
-
-    private void UpdateReceiver()
-    {
-        
-    }
-
 }

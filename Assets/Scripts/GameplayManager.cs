@@ -74,6 +74,10 @@ public class GameplayManager : MonoBehaviour
     {
         if (_currGameLevel)
         {
+            foreach (var lightReceiver in _currGameLevel.lightReceivers)
+            {
+                lightReceiver.UpdateReceiver();
+            }
             foreach (var lightSource in _currGameLevel.lightSources)
             {
                 lightSource.UpdateLightSource();
@@ -81,6 +85,11 @@ public class GameplayManager : MonoBehaviour
             foreach (var waveParticleConverter in _currGameLevel.waveParticleConverters)
             {
                 waveParticleConverter.UpdateConverter();
+            }
+
+            if (_currGameLevel.WinConditionFulfilled())
+            {
+                Debug.Log("Win level");
             }
         }
     }
