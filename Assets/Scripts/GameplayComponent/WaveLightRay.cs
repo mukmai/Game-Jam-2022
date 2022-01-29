@@ -24,6 +24,7 @@ public class WaveLightRay : LightRay
         line.SetPosition(1, newEnd);
     }
 
+
     public override void CreateOrUpdateReflectionChild(Vector3 startPos,Vector3 direction)
     {
         if (!reflectionChild)
@@ -35,11 +36,27 @@ public class WaveLightRay : LightRay
         reflectionChild.SetNewDirection(direction);
     }
 
-    public Vector3[] GetPositions()
+    public override void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
-        Vector3[] position = new Vector3[line.positionCount];
-        line.GetPositions(position);
-        return position;
+        if (slitChildren.Count == 0)
+        {
+            for (int i=0; i<3; i++)
+            {
+                slitChildren[i] = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+            }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            slitChildren[i].SetNewStart(startPos);
+        }
+
+        slitChildren[0].SetNewDirection(Quaternion.Euler(0, 45, 0) * direction);
+        slitChildren[1].SetNewDirection(direction);
+        slitChildren[2].SetNewDirection(Quaternion.Euler(0, -45, 0) * direction);
+
+        //TODO cases for different color
+        
     }
 
     // Update is called once per frame
@@ -56,7 +73,5 @@ public class WaveLightRay : LightRay
         
         base.UpdateLightRay();
     }
-
-
 
 }

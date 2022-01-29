@@ -7,8 +7,6 @@ public class LightRay : MonoBehaviour
     public LightRay parent;
     public LightRay reflectionChild;
     public List<LightRay> slitChildren;
-    public Material mat;
-    public Vector3 direction;
 
     //constructors
     public LightRay()
@@ -66,6 +64,10 @@ public class LightRay : MonoBehaviour
     }
 
     public virtual void CreateOrUpdateReflectionChild(Vector3 startPos, Vector3 direction)
+    {
+    }
+
+    public virtual void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
     {
     }
 
