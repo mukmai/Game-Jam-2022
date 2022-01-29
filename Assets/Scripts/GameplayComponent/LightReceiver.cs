@@ -6,9 +6,11 @@ public class LightReceiver : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _cloudParticles;
     //Color _desirecolor = GetComponent<LightReceiver>().color;
+    bool _hitByWave;
+    
     void Start()
     {
-        bool _hitByWave =false;
+        
     }
 
     public virtual void OnCollisionEnter2D(Collision2D collision)

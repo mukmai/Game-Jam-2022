@@ -35,6 +35,17 @@ public class WaveLightRay : LightRay
         reflectionChild.SetNewDirection(direction);
     }
 
+    public override void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
+    {
+        if (!converterChild)
+        {
+            converterChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleLightRayGameObject).GetComponent<LightRay>();
+        }
+        
+        converterChild.SetNewStart(startPos);
+        converterChild.SetNewDirection(direction);
+    }
+
     public Vector3[] GetPositions()
     {
         Vector3[] position = new Vector3[line.positionCount];

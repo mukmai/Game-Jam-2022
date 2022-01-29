@@ -9,6 +9,14 @@ public class RotatableObject : MonoBehaviour
     private float _initRotateOffset;
     [SerializeField] private Rigidbody rigidbody;
     private bool _isControlling;
+
+    public void Init()
+    {
+        if (!rigidbody)
+        {
+            rigidbody = GetComponent<Rigidbody>();
+        }
+    }
     
     void OnMouseOver()
     {

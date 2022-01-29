@@ -10,6 +10,14 @@ public class FreeDragObject : MonoBehaviour
 
     private bool _isControlling;
     
+    public void Init()
+    {
+        if (!rigidbody)
+        {
+            rigidbody = GetComponent<Rigidbody>();
+        }
+    }
+
     void OnMouseDown()
     {
         if (GameplayManager.Instance.TryGrabTool(transform, false))

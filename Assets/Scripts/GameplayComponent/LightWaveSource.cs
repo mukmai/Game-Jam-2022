@@ -21,6 +21,8 @@ public class LightWaveSource : LightSource
         {
             AddLightRay();
         }
+        lightRay.SetNewStart(transform.position);
+        lightRay.SetNewDirection(transform.forward);
         lightRay.UpdateLightRay();
     }
 }

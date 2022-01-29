@@ -11,12 +11,18 @@ public class DragAlongPathObject : MonoBehaviour
     private LineRenderer _lr;
 
     private bool _isControlling;
-
-    private void Start()
+    
+    public void Init()
     {
+        if (!rigidbody)
+        {
+            rigidbody = GetComponent<Rigidbody>();
+        }
+        
         SetUpPath();
         MoveToClosetPointOnPath();
     }
+
 
     private void SetUpPath()
     {

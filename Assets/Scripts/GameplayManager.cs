@@ -70,13 +70,17 @@ public class GameplayManager : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_currGameLevel)
         {
             foreach (var lightSource in _currGameLevel.lightSources)
             {
                 lightSource.UpdateLightSource();
+            }
+            foreach (var waveParticleConverter in _currGameLevel.waveParticleConverters)
+            {
+                waveParticleConverter.UpdateConverter();
             }
         }
     }
