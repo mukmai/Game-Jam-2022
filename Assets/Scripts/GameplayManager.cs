@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -51,15 +53,18 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public GameObject particleGameObject;
     public Material generalPathLineMaterial;
     public Material receiverPathLineMaterial;
+    [SerializeField] private Transform winGlowEffect;
+    [SerializeField] private TextMeshProUGUI winText;
+    private bool _hasWin;
 
     private void CacheObject()
     {
         waveLightRayGameObject = Resources.Load<GameObject>("GameComponents/WaveLightRay");
         particleLightRayGameObject = Resources.Load<GameObject>("GameComponents/ParticleLightRay");
         particleGameObject = Resources.Load<GameObject>("GameComponents/Particle");
-        // TODO: cache light wave and particles
-        // ObjectPool.Instance.CacheObject();
-
+        ObjectPool.Instance.CacheObject(waveLightRayGameObject, 25);
+        ObjectPool.Instance.CacheObject(particleLightRayGameObject, 10);
+        ObjectPool.Instance.CacheObject(particleGameObject, 40);
     }
 
     public void SetUpGame()
@@ -68,6 +73,7 @@ public class GameplayManager : MonoBehaviour
         _currGameLevel = ObjectPool.Instance.CreateObject(
             Resources.Load<GameObject>("GameLevels/" + _currLevelId)).GetComponent<GameLevel>();
         _currGameLevel.Init();
+        _hasWin = false;
         // AudioManager.Instance.Play("AudioTest");
     }
     
@@ -93,11 +99,27 @@ public class GameplayManager : MonoBehaviour
                 waveParticleConverter.UpdateConverter();
             }
 
-            if (_currGameLevel.WinConditionFulfilled())
+            if (!_hasWin && _currGameLevel.WinConditionFulfilled())
             {
                 Debug.Log("Win level");
+                _hasWin = true;
+                WinGame();
             }
         }
+    }
+
+    private void WinGame()
+    {
+        DOVirtual.DelayedCall(3, () =>
+        {
+            SceneManager.LoadScene("MainScene");
+        });
+
+        winGlowEffect.DOScale(10, 1.5f);
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            winText.DOFade(1, 1f);
+        });
     }
     
     public void QuitLevel()
