@@ -97,7 +97,7 @@ public class LightRay : MonoBehaviour
         //start point update
         foreach (LightRay i in slitChildren)
         {
-            UpdateLightRay();
+            i.UpdateLightRay();
         }
 
         if (reflectionChild)
