@@ -86,6 +86,10 @@ public class LightRay : MonoBehaviour
     }
 
 
+    public virtual void CreateOrUpdateSlitChildren(Vector3 startPos, Vector3 direction)
+    {
+    }
+
     // Update is called once per frame
     public virtual void UpdateLightRay()
     {

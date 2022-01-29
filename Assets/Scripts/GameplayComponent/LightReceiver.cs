@@ -7,31 +7,20 @@ public class LightReceiver : MonoBehaviour
     [SerializeField] private ParticleSystem _cloudParticles;
     //Color _desirecolor = GetComponent<LightReceiver>().color;
     bool _hitByWave;
-    
-    void Start()
+    void Awake()
     {
-        
+        bool hit = false;
+        gameObject.layer = 2;
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public virtual void Reaction()
     {
-        WaveLightRay wave = collision.collider.GetComponent<WaveLightRay>();
-        //Vector3[] collisionPoints = wave.GetPositions();
-        if(wave != null) 
-        {
-            _cloudParticles.Play();
-            _hitByWave =true;
-        }
-        else
-        {
-            _hitByWave = false;
-        }
-        return;
+
     }
 
     public virtual bool ReceivingLight()
     {
-        return _hitByWave;
+        return false;
     }
 
 
