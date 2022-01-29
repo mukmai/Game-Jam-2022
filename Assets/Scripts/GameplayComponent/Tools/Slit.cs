@@ -11,6 +11,7 @@ public class Slit : LightRayHitTarget
         wave.CreateOrUpdateSlitChildren(outTransform.position, -transform.forward);
         wave.RemoveReflectionChild();
         wave.RemoveConverterChild();
+        wave.RemoveRefractionChildren();
     }
 
     public override void HandleParticleInteraction(Particle particle)

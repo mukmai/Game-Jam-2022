@@ -15,6 +15,7 @@ public class LightRay : MonoBehaviour
     public LightRay parent;
     public LightRay reflectionChild;
     public LightRay converterChild;
+    public List<LightRay> refractionChildren;
     public List<LightRay> slitChildren;
     [EnumFlag] public ColorCode colorCode;
     public int power;
@@ -73,11 +74,21 @@ public class LightRay : MonoBehaviour
         converterChild = null;
     }
 
+    public void RemoveRefractionChildren()
+    {
+        foreach (LightRay i in refractionChildren)
+        {
+            i.Remove();
+        }
+        refractionChildren.Clear();
+    }
+
     public void Remove()
     {
         RemoveSlitChildren();
         RemoveReflectionChild();
         RemoveConverterChild();
+        RemoveRefractionChildren();
         ObjectPool.Instance.DestroyObject(gameObject);
     }
 
@@ -110,6 +121,10 @@ public class LightRay : MonoBehaviour
     {
     }
 
+    public virtual void CreateOrUpdateRefractionChildren(Vector3 startPos, Vector3 endPos, Vector3 direction)
+    {
+    }
+
     // Update is called once per frame
     public virtual void UpdateLightRay()
     {
@@ -128,7 +143,10 @@ public class LightRay : MonoBehaviour
         {
             converterChild.UpdateLightRay();
         }
-        
+        if (refractionChildren[1])
+        {
+            refractionChildren[1].UpdateLightRay();
+        }
     }
 }
 
