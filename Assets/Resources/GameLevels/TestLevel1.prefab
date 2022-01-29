@@ -705,6 +705,8 @@ MonoBehaviour:
   pathPoints:
   - {x: 3, y: 0, z: 3}
   - {x: 3, y: 0, z: -3}
+  - {x: -3, y: 0, z: -3}
+  lineMaterial: {fileID: 0}
 --- !u!1001 &7306854089041706833
 PrefabInstance:
   m_ObjectHideFlags: 0

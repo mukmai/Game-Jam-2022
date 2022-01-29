@@ -433,6 +433,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currTestingLevel: TestLevel
+  waveLightRayGameObject: {fileID: 0}
+  particleLightRayGameObject: {fileID: 0}
+  particleGameObject: {fileID: 0}
+  generalPathLineMaterial: {fileID: 2100000, guid: fd692776f2a7c98409722bb20ac269ad, type: 2}
 --- !u!1 &6664655674688899034
 GameObject:
   m_ObjectHideFlags: 0

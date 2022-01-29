@@ -49,6 +49,7 @@ public class GameplayManager : MonoBehaviour
     [HideInInspector] public GameObject waveLightRayGameObject;
     [HideInInspector] public GameObject particleLightRayGameObject;
     [HideInInspector] public GameObject particleGameObject;
+    public Material generalPathLineMaterial;
 
     private void CacheObject()
     {
