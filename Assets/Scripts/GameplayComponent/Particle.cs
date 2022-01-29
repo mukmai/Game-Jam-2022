@@ -15,6 +15,7 @@ public class Particle : MonoBehaviour
     [SerializeField] private VolumetricLines.VolumetricLineBehavior line;
     public int power;
     public bool withinRefractionMedium;
+    public ParticleLightRay sourceLightRay;
 
     public void Init(Vector3 forward, ParticleLightRay lightRay)
     {
@@ -22,6 +23,7 @@ public class Particle : MonoBehaviour
         line.EndPos = Vector3.forward * -0.025f;
         _lifeEndTime = Time.time + _lifeDuration;
         UpdateMoveDirection(forward);
+        sourceLightRay = lightRay;
         power = lightRay.power;
         SetColor(lightRay.colorCode);
         withinRefractionMedium = false;

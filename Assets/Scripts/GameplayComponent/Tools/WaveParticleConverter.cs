@@ -11,10 +11,14 @@ public class WaveParticleConverter : LightRayHitTarget
     private float WaveLightRayCreateThreshold => 0.75f / ParticleLightRay.shootParticleInterval;
     private int _hitParticlePower;
     private ColorCode _hitParticleColorCode;
+    private LightRay _currWaveLightSource;
+    private LightRay _currParticleLightSource;
+    private bool _currLightSourceHitThisFrame;
 
     public void Init()
     {
         _hitCounter = new List<float>();
+        _currWaveLightSource = null;
     }
     
     public override void HandleWaveInteraction(WaveLightRay wave, Vector3 hitPosition, Vector3 hitDirection, Vector3 normalDirection)
@@ -22,16 +26,29 @@ public class WaveParticleConverter : LightRayHitTarget
         wave.SetNewEnd(hitPosition);
         wave.RemoveReflectionChild();
         wave.RemoveSlitChildren();
-        wave.CreateOrUpdateConverterChild(childShootTransform.position, childShootTransform.forward);
+        wave.RemoveRefractionChildren();
+        if ((!_currParticleLightSource && !_currWaveLightSource) || _currWaveLightSource == wave)
+        {
+            _currWaveLightSource = wave;
+            _currLightSourceHitThisFrame = true;
+            wave.CreateOrUpdateConverterChild(childShootTransform.position, childShootTransform.forward);
+        }
+        else
+        {
+            wave.RemoveConverterChild();
+        }
     }
 
     public override void HandleParticleInteraction(Particle particle, Vector3 normalDirection)
     {
         particle.Remove();
-        // calculate particle/sec
-        _hitCounter.Add(Time.time);
-        _hitParticlePower = particle.power;
-        _hitParticleColorCode = particle.colorCode;
+        if ((!_currParticleLightSource && !_currWaveLightSource) || _currParticleLightSource == particle.sourceLightRay)
+        {
+            _currParticleLightSource = particle.sourceLightRay;
+            _hitCounter.Add(Time.time);
+            _hitParticlePower = particle.power;
+            _hitParticleColorCode = particle.colorCode;
+        }
     }
     
     private void CreateOrUpdateConvertedWaveLightRay(Vector3 startPos,Vector3 direction)
@@ -58,6 +75,11 @@ public class WaveParticleConverter : LightRayHitTarget
         _convertedWaveLightRay = null;
     }
 
+    public void PreUpdateConverter()
+    {
+        _currLightSourceHitThisFrame = false;
+    }
+
     public void UpdateConverter()
     {
         if (_convertedWaveLightRay)
@@ -72,6 +94,16 @@ public class WaveParticleConverter : LightRayHitTarget
         else
         {
             CreateOrUpdateConvertedWaveLightRay(childShootTransform.position, transform.forward);
+        }
+
+        if (_hitCounter.Count == 0)
+        {
+            _currParticleLightSource = null;
+        }
+
+        if (!_currLightSourceHitThisFrame)
+        {
+            _currWaveLightSource = null;
         }
     }
 }

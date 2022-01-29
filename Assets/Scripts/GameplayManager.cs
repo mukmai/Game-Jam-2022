@@ -74,6 +74,10 @@ public class GameplayManager : MonoBehaviour
     {
         if (_currGameLevel)
         {
+            foreach (var waveParticleConverter in _currGameLevel.waveParticleConverters)
+            {
+                waveParticleConverter.PreUpdateConverter();
+            }
             foreach (var lightReceiver in _currGameLevel.lightReceivers)
             {
                 lightReceiver.UpdateReceiver();
