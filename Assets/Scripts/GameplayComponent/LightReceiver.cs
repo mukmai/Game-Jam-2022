@@ -58,7 +58,7 @@ public class LightReceiver : MonoBehaviour
         _lr.startWidth = 0.2f;
         _lr.endWidth = 0.2f;
         float partSize = 0.25f;
-        int parts = (int)((transform.position.x + 4.5f) / partSize);
+        int parts = (int)((transform.position.z + 4.5f) / partSize);
         _lr.positionCount = parts + 1;
         for (int i = 0; i < parts; i++)
         {
