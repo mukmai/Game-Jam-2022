@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ac30d08ce6471e449857389cc8bd95c, type: 2}
+  - {fileID: 2100000, guid: 1e646ff3213f0434ea0c2497a969e128, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8589487875498891865}
   - component: {fileID: 3771214263501481384}
   m_Layer: 0
-  m_Name: RefractionMedium 2
+  m_Name: RefractionMedium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,4 +157,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refractionIndex: 1.5
-  mediumLength: 0

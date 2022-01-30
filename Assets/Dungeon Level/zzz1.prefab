@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8057658016012836224}
   - component: {fileID: 8057658016016867198}
   m_Layer: 0
-  m_Name: rotor 1
+  m_Name: zzz1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
