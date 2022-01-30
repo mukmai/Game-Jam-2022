@@ -31,6 +31,14 @@ public class ApplicationManager : MonoBehaviour
     [SerializeField] private Button prevChapterButton;
     private int _currChapterIndex;
 
+    [SerializeField] private GameObject levelButtonGameObject;
+    [SerializeField] private Transform chapter1LevelContainer;
+    [SerializeField] private List<string> chapter1LevelList;
+    [SerializeField] private Transform chapter2LevelContainer;
+    [SerializeField] private List<string> chapter2LevelList;
+    [SerializeField] private Transform chapter3LevelContainer;
+    [SerializeField] private List<string> chapter3LevelList;
+
     void Start()
     {
         frontPanel.localScale = Vector3.one;
@@ -82,27 +90,40 @@ public class ApplicationManager : MonoBehaviour
         prevChapterButton.gameObject.SetActive(_currChapterIndex > 0);
     }
 
-    public void EnterGameplay(int levelIndex)
+    public void EnterGameplay(string levelName)
     {
-        string actualLevelName = (_currChapterIndex + 1) + "_" + levelIndex;
-        Debug.Log("Enter level: " + actualLevelName);
-        GameplayManager.SelectedLevelFromMenu = actualLevelName;
+        GameplayManager.SelectedLevelFromMenu = levelName;
         GameplayManager.MenuSelectedLevel = true;
         SceneManager.LoadScene("GameScene");
     }
 
     private void SetUpLevelButtons()
     {
-        for (int i = 0; i < chapterList.childCount; i++)
+        for (int j = 0; j < chapter1LevelList.Count; j++)
         {
-            Transform currLevelContainer = chapterList.GetChild(i).GetChild(0);
+            // Debug.Log(currChapter.name + " " + j);
+            GameObject currButtonGameObject = Instantiate(levelButtonGameObject, chapter1LevelContainer);
             
-            for (int j = 0; j < currLevelContainer.childCount; j++)
-            {
-                // Debug.Log(currChapter.name + " " + j);
-                LevelSelectButton currButton = currLevelContainer.GetChild(j).GetComponent<LevelSelectButton>();
-                currButton.Init();
-            }
+            LevelSelectButton currButton = currButtonGameObject.GetComponent<LevelSelectButton>();
+            currButton.Init(chapter1LevelList[j]);
+        }
+        
+        for (int j = 0; j < chapter2LevelList.Count; j++)
+        {
+            // Debug.Log(currChapter.name + " " + j);
+            GameObject currButtonGameObject = Instantiate(levelButtonGameObject, chapter2LevelContainer);
+            
+            LevelSelectButton currButton = currButtonGameObject.GetComponent<LevelSelectButton>();
+            currButton.Init(chapter2LevelList[j]);
+        }
+        
+        for (int j = 0; j < chapter3LevelList.Count; j++)
+        {
+            // Debug.Log(currChapter.name + " " + j);
+            GameObject currButtonGameObject = Instantiate(levelButtonGameObject, chapter3LevelContainer);
+            
+            LevelSelectButton currButton = currButtonGameObject.GetComponent<LevelSelectButton>();
+            currButton.Init(chapter3LevelList[j]);
         }
     }
     
