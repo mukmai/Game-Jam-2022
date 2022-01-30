@@ -5,7 +5,7 @@ using UnityEngine;
 public class LightSource : MonoBehaviour
 {
     [EnumFlag] public ColorCode colorCode = ColorCode.Blue | ColorCode.Red | ColorCode.Yellow;
-    protected int _initialPower = 8;
+    protected int _initialPower = 12;
 
     public virtual void UpdateLightSource()
     {

@@ -26,7 +26,7 @@ public class GameplayManager : MonoBehaviour
     public static string SelectedLevelFromMenu;
     [SerializeField] private string currTestingLevel;
     private string _currLevelId;
-    private GameLevel _currGameLevel;
+    public GameLevel _currGameLevel;
 
     private Transform _currGrabbingObject;
     private bool _isGrabRotation;
@@ -74,6 +74,7 @@ public class GameplayManager : MonoBehaviour
             Resources.Load<GameObject>("GameLevels/" + _currLevelId)).GetComponent<GameLevel>();
         _currGameLevel.Init();
         _hasWin = false;
+        Camera.main.orthographicSize = _currGameLevel.zRadius;
         // AudioManager.Instance.Play("AudioTest");
     }
     

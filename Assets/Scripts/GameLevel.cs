@@ -8,6 +8,7 @@ public class GameLevel : MonoBehaviour
     public List<LightSource> lightSources;
     public List<LightReceiver> lightReceivers;
     public List<WaveParticleConverter> waveParticleConverters;
+    public float zRadius = 5;
 
     public void Init()
     {

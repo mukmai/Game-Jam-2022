@@ -58,13 +58,13 @@ public class LightReceiver : MonoBehaviour
         _lr.startWidth = 0.2f;
         _lr.endWidth = 0.2f;
         float partSize = 0.25f;
-        int parts = (int)((transform.position.z + 4.5f) / partSize);
+        int parts = (int)((transform.position.z + GameplayManager.Instance._currGameLevel.zRadius) / partSize);
         _lr.positionCount = parts + 1;
         for (int i = 0; i < parts; i++)
         {
             _lr.SetPosition(i, new Vector3(transform.position.x, -0.45f, transform.position.z - partSize * i));
         }
-        _lr.SetPosition(parts, new Vector3(transform.position.x, -0.45f, -4.5f));
+        _lr.SetPosition(parts, new Vector3(transform.position.x, -0.45f, -GameplayManager.Instance._currGameLevel.zRadius));
         _lr.material = GameplayManager.Instance.receiverPathLineMaterial;
     }
     
