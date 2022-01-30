@@ -37,6 +37,11 @@ public class GameLevel : MonoBehaviour
         {
             freeDragObject.Init();
         }
+        var gravityFields = GetComponentsInChildren<GravityField>().ToList();
+        foreach (var gravityField in gravityFields)
+        {
+            gravityField.Init();
+        }
     }
     
     public bool WinConditionFulfilled()
