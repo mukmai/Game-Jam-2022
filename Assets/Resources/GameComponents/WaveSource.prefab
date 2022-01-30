@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd29dfde994ca548971c411749a4fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
+  colorCode: -1
   lightRay: {fileID: 0}
 --- !u!1001 &2968873155754848575
 PrefabInstance:

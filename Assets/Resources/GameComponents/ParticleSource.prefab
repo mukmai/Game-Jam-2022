@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd718fe87ef249a4ea2b04092166defb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorCode: -1
+  lightRay: {fileID: 0}
 --- !u!1001 &6909677782547327550
 PrefabInstance:
   m_ObjectHideFlags: 0
