@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class GravityField : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float force = 10;
+    public void EnterGravityField(Particle particle)
     {
-        
+        Vector3 newDirection = (particle.transform.forward + transform.forward * force * Time.deltaTime).normalized;
+        particle.UpdateMoveDirection(newDirection);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

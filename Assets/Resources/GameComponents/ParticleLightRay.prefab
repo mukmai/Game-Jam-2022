@@ -45,10 +45,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   reflectionChild: {fileID: 0}
+  converterChild: {fileID: 0}
+  refractionChildren: []
+  refractionOutChild: {fileID: 0}
   slitChildren: []
-  mat: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
+  colorCode: 0
+  power: 0
   particles: []
-  unitDist: 10
   startPos: {x: 0, y: 0, z: 0}
   endPos: {x: 0, y: 0, z: 0}

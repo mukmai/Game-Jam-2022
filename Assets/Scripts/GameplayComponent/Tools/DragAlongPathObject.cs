@@ -9,6 +9,7 @@ public class DragAlongPathObject : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private List<Vector3> pathPoints;
     private LineRenderer _lr;
+    [SerializeField] private Material lineMaterial;
 
     private bool _isControlling;
     
@@ -35,8 +36,14 @@ public class DragAlongPathObject : MonoBehaviour
         _lr.positionCount = pathPoints.Count;
         for (int i = 0; i < pathPoints.Count; i++)
         {
-            _lr.SetPosition(i, pathPoints[i]);
+            _lr.SetPosition(i, pathPoints[i].RemoveY() + new Vector3(0, -0.4f, 0));
         }
+
+        if (!lineMaterial)
+        {
+            lineMaterial = GameplayManager.Instance.generalPathLineMaterial;
+        }
+        _lr.material = lineMaterial;
     }
 
     void OnMouseDown()

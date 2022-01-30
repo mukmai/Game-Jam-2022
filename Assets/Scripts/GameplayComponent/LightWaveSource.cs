@@ -11,6 +11,8 @@ public class LightWaveSource : LightSource
     {
         lightRay = ObjectPool.Instance.CreateObject(
             GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
+        lightRay.SetColor(colorCode);
+        lightRay.SetPower(_initialPower);
         lightRay.SetNewStart(transform.position);
         lightRay.SetNewDirection(transform.forward);
     }

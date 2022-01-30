@@ -15,4 +15,27 @@ public static class HelperFunctions
 
         return Camera.main.ScreenToWorldPoint(mousePoint).RemoveY();
     }
+
+    public static Color ToColor(this ColorCode colorCode)
+    {
+        switch (colorCode)
+        {
+            case 0:
+                return Color.gray;
+            case ColorCode.Red:
+                return Color.red;
+            case ColorCode.Yellow:
+                return Color.yellow;
+            case ColorCode.Blue:
+                return Color.blue;
+            case ColorCode.Red | ColorCode.Yellow:
+                return new Color(1, .5f, 0);
+            case ColorCode.Yellow | ColorCode.Blue:
+                return Color.green;
+            case ColorCode.Red | ColorCode.Blue:
+                return Color.magenta;
+            default:
+                return Color.white;
+        }
+    }
 }

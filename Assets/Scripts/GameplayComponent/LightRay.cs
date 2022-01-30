@@ -1,25 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
+[Flags] public enum ColorCode
+{
+    Red = 1,
+    Yellow = 2,
+    Blue = 4
+}
 public class LightRay : MonoBehaviour
 {
     public LightRay parent;
     public LightRay reflectionChild;
     public LightRay converterChild;
+    public List<LightRay> refractionChildren;
+    public LightRay refractionOutChild;
     public List<LightRay> slitChildren;
+    [EnumFlag] public ColorCode colorCode;
+    public int power;
 
     //constructors
     public LightRay()
     {
         parent = null;
         slitChildren = new List<LightRay>();
+        refractionChildren = new List<LightRay>();
+    }
+    
+    public virtual void SetColor(ColorCode colorCode)
+    {
+        
     }
 
-    //add new node
-    public void Add(LightRay lightRay)
+    public void SetPower(int val)
     {
-        slitChildren.Add(lightRay);
+        power = val;
     }
 
     //remove lightRay as node, set inactive
@@ -53,11 +70,27 @@ public class LightRay : MonoBehaviour
         converterChild = null;
     }
 
+    public void RemoveRefractionChildren()
+    {
+        foreach (LightRay i in refractionChildren)
+        {
+            i.Remove();
+        }
+        refractionChildren.Clear();
+        
+        if (refractionOutChild)
+        {
+            refractionOutChild.Remove();
+        }
+        refractionOutChild = null;
+    }
+
     public void Remove()
     {
         RemoveSlitChildren();
         RemoveReflectionChild();
         RemoveConverterChild();
+        RemoveRefractionChildren();
         ObjectPool.Instance.DestroyObject(gameObject);
     }
 
@@ -90,6 +123,10 @@ public class LightRay : MonoBehaviour
     {
     }
 
+    public virtual void CreateOrUpdateRefractionChildren(List<Vector3> hitPositions, Vector3 outDirection)
+    {
+    }
+
     // Update is called once per frame
     public virtual void UpdateLightRay()
     {
@@ -108,6 +145,40 @@ public class LightRay : MonoBehaviour
         {
             converterChild.UpdateLightRay();
         }
-        
+        if (refractionOutChild)
+        {
+            refractionOutChild.UpdateLightRay();
+        }
+    }
+}
+
+public class EnumFlagAttribute : PropertyAttribute
+{
+    public string name;
+
+    public EnumFlagAttribute() { }
+
+    public EnumFlagAttribute(string name)
+    {
+        this.name = name;
+    }
+}
+
+[CustomPropertyDrawer(typeof(EnumFlagAttribute))]
+public class EnumFlagDrawer : PropertyDrawer
+{
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        EnumFlagAttribute flagSettings = (EnumFlagAttribute)attribute;
+        Enum targetEnum = (Enum)fieldInfo.GetValue(property.serializedObject.targetObject);
+
+        string propName = flagSettings.name;
+        if (string.IsNullOrEmpty(propName))
+            propName = ObjectNames.NicifyVariableName(property.name);
+
+        EditorGUI.BeginProperty(position, label, property);
+        Enum enumNew = EditorGUI.EnumMaskPopup(position, propName, targetEnum);
+        property.intValue = (int)Convert.ChangeType(enumNew, targetEnum.GetType());
+        EditorGUI.EndProperty();
     }
 }

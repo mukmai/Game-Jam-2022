@@ -13,6 +13,11 @@ public class ParticleLightRay : LightRay
     {
         particles = new List<Particle>();
     }
+    
+    public override void SetColor(ColorCode colorCode)
+    {
+        this.colorCode = colorCode;
+    }
 
     //change end position of the particles
     public override void SetNewEnd(Vector3 newEndPos)
@@ -25,18 +30,6 @@ public class ParticleLightRay : LightRay
     {
         base.SetNewStart(newStartPos);
     }
-    
-    public override void CreateOrUpdateConverterChild(Vector3 startPos, Vector3 direction)
-    {
-        if (!converterChild)
-        {
-            converterChild = ObjectPool.Instance.CreateObject(GameplayManager.Instance.waveLightRayGameObject).GetComponent<LightRay>();
-        }
-        
-        converterChild.SetNewStart(startPos);
-        converterChild.SetNewDirection(direction);
-    }
-
 
     // Update is called once per frame
     public override void UpdateLightRay()
@@ -45,7 +38,7 @@ public class ParticleLightRay : LightRay
         {
             var currParticle = ObjectPool.Instance.CreateObject(GameplayManager.Instance.particleGameObject, 
                 localPos: transform.position).GetComponent<Particle>();
-            currParticle.Init(transform.forward);
+            currParticle.Init(transform.forward, this);
             _lastShootParticleTime = Time.time;
         }
     }
