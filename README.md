@@ -5,12 +5,10 @@ This game is about the wave-particle duality property of light where to goal of 
 
 Assets used:
 
-Low Poly Space Rocks
+Infima Games - Low Poly Space Rocks
 
-Mega Fantasy Props Pack
+karboosx - Mega Fantasy Props Pack; Sci-Fi Styled Modular Pack
 
-Sci-Fi Styled Modular Pack
+Demigiant - DOTween
 
-DOTween
-
-VolumetricLines
+Johannes Unterguggenberger - VolumetricLines
